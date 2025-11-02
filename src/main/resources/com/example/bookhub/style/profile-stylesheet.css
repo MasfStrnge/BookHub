@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'Alexandria'; /* The name you'll use in CSS */
+    src: url("../fonts/Alexandria-VariableFont_wght.ttf"); /* Path relative to the CSS file or the root of the classpath */
+}
+
+.root {
+    -fx-background-color: #E9E3E1;
+    -fx-pref-height: 1024px;
+    -fx-pref-width: 1440px;
+}
+
+.Menu {
+    -fx-background-color: #880D0D;
+    -fx-pref-height: 980px;
+    -fx-pref-width: 92px;
+}
+
+.LogoBookHub {
+    -fx-background-image: url("../img/BookHubLogo_RED.png");
+    -fx-pref-height: 145px;
+    -fx-pref-width: 184px;
+}
+
+.PerfilPrincipal {
+    -fx-background-color: #E9E3E1
+}
+
+.PainelImagemFundo {
+    -fx-background-size: cover; /* Ajusta a imagem ao tamanho do Pane */
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 25px;
+}
+
+.PainelFotoPerfil {
+    -fx-background-size: cover; /* Ajusta a imagem ao tamanho do Pane */
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 100%;
+}
+
+.FavoritosDiv {
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+}
+
+.LivrosFavoritos {
+    -fx-background-size: cover; /* Ajusta a imagem ao tamanho do Pane */
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-pref-height: 350px;
+    -fx-pref-width: 240px;
+
+}

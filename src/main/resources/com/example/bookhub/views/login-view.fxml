@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1440.0" styleClass="root" stylesheets="@../style/login-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.LoginController">
+   <children>
+            <Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="616.0" prefWidth="641.0" styleClass="LoginPane" stylesheets="@../style/login-stylesheet.css" StackPane.alignment="CENTER">
+          <children>
+      
+              <PasswordField fx:id="CampoDeSenha" layoutX="90.0" layoutY="356.0" promptText="SENHA" styleClass="CampoDeSenha" stylesheets="@../style/login-stylesheet.css">
+                  <font>
+                      <Font name="Alexandria Regular" size="13.0" />
+                  </font>
+      
+              </PasswordField>
+      
+              <TextField fx:id="CampoNomeDeUsuario" layoutX="90.0" layoutY="273.0" promptText="NOME DO USUÁRIO" styleClass="CampoNomeDeUsuario" stylesheets="@../style/login-stylesheet.css">
+                  <font>
+                      <Font name="Alexandria Regular" size="13.0" />
+                  </font>
+              </TextField>
+      
+              <Button fx:id="entrar" defaultButton="true" layoutX="240.0" layoutY="487.0" mnemonicParsing="false" onAction="#entrar" styleClass="BotaoEntrar" stylesheets="@../style/login-stylesheet.css" text="ENTRAR" textFill="WHITE">
+                  <font>
+                        <Font name="DejaVu Sans Condensed Bold" size="13.0" />
+                  </font>
+              </Button>
+      
+              <Label layoutX="194.0" layoutY="168.0" text="Realizar Login">
+                  <font>
+                      <Font name="Alexandria Regular" size="36.0" />
+                  </font>
+              </Label>
+      
+              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="221.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="LogoBookHub">
+                  <image>
+                      <Image url="@../img/BookHubLogo_RED.png" />
+                  </image>
+              </ImageView>
+      
+              <Label fx:id="Cadastrar_se" layoutX="437.0" layoutY="410.0" onMouseClicked="#registrarConta" styleClass="Cadastrar_se" stylesheets="@../style/login-stylesheet.css" text="CADASTRE-SE">
+                  <font>
+                      <Font name="Alexandria Regular" size="16.0" />
+                  </font>
+              </Label>
+      
+          </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+            </Pane>
+   </children>
+</StackPane>

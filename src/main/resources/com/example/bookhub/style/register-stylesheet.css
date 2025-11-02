@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Alexandria'; /* The name you'll use in CSS */
+    src: url("../fonts/Alexandria-VariableFont_wght.ttf"); /* Path relative to the CSS file or the root of the classpath */
+}
+
+.root {
+    -fx-background-image: url("../img/login_register_background.jpg");
+    -fx-pref-height: 1024px;
+    -fx-pref-width: 1440px;
+}
+
+.RegisterPane {
+    -fx-background-color: rgba(255,249,249,0.69);
+    -fx-background-radius: 25px;
+    -fx-pref-height: 798px;
+    -fx-pref-width: 690px;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 25px;
+}
+
+.TextField {
+    -fx-background-color: rgba(30,30,30,0.62);
+    -fx-pref-height: 44px;
+    -fx-pref-width: 462px;
+    -fx-prompt-text-fill: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+}
+
+.PasswordField {
+    -fx-background-color: rgba(30,30,30,0.62);
+    -fx-pref-height: 44px;
+    -fx-pref-width: 462px;
+    -fx-prompt-text-fill: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+}
+
+.Button {
+    -fx-background-color: rgba(136,13,13,0.72);
+    -fx-pref-height: 44px;
+    -fx-pref-width: 137px;
+    -fx-background-radius: 20px;
+}

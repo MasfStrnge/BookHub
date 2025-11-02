@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ProfileControler">
+   <center>
+      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="PainelImagemFundo" layoutX="136.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="192.0" prefWidth="1269.0" styleClass="PainelImagemFundo" stylesheets="@../style/profile-stylesheet.css">
+               <StackPane.margin>
+                  <Insets top="-625.0" />
+               </StackPane.margin>
+               <children>
+                  <ImageView fx:id="ImagemFundo" fitHeight="193.0" fitWidth="1268.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="PainelFotoPerfil" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="156.0" prefWidth="160.0" styleClass="PainelFotoPerfil" stylesheets="@../style/profile-stylesheet.css">
+               <StackPane.margin>
+                  <Insets right="1000.0" top="-420.0" />
+               </StackPane.margin>
+               <children>
+                  <ImageView fx:id="ImagemPerfil" fitHeight="110.0" fitWidth="122.0" layoutX="38.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <Label stylesheets="@../style/profile-stylesheet.css" text="Seus Livros Favoritos">
+               <font>
+                  <Font name="Alexandria Regular" size="28.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets top="-150.0" />
+               </StackPane.margin>
+            </Label>
+            <HBox fx:id="ConteinerFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="1269.0" styleClass="FavoritosDiv" stylesheets="@../style/profile-stylesheet.css">
+               <StackPane.margin>
+                  <Insets top="500.0" />
+               </StackPane.margin>
+               <children>
+                  <Pane fx:id="PainelLivro1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefWidth="239.0" styleClass="LivrosFavoritos" stylesheets="@../style/profile-stylesheet.css">
+                     <HBox.margin>
+                        <Insets bottom="50.0" left="50.0" top="50.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fx:id="CapaFavorito1" fitHeight="150.0" fitWidth="200.0" layoutX="-10.0" layoutY="-19.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="PainelLivro2" layoutX="60.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefWidth="239.0" styleClass="LivrosFavoritos" stylesheets="@../style/profile-stylesheet.css">
+                     <HBox.margin>
+                        <Insets bottom="50.0" left="50.0" top="50.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></Pane>
+                  <Pane fx:id="PainelLivro3" layoutX="60.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefWidth="239.0" styleClass="LivrosFavoritos" stylesheets="@../style/profile-stylesheet.css">
+                     <HBox.margin>
+                        <Insets bottom="50.0" left="50.0" top="50.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></Pane>
+                  <Pane fx:id="PainelLivro4" layoutX="60.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0" prefWidth="239.0" styleClass="LivrosFavoritos" stylesheets="@../style/profile-stylesheet.css">
+                     <HBox.margin>
+                        <Insets bottom="50.0" left="50.0" top="50.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <ImageView fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+               <StackPane.margin>
+                  <Insets bottom="900.0" right="1050.0" />
+               </StackPane.margin>
+               <image>
+                  <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></StackPane>
+   </center>
+   <left>
+      <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="BotaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search.png" />
+               </image></ImageView>
+            <ImageView fx:id="BotaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/home.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="BotaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/favorite.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="BotaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/exit.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+   </left>
+</BorderPane>
