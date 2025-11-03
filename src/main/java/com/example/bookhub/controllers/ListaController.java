@@ -2,17 +2,16 @@ package com.example.bookhub.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.stage.Stage;
 
@@ -31,7 +30,7 @@ public class ListaController {
 
             Stage stage = (Stage) rootPane.getScene().getWindow();
 
-            PerfilController perfilController = loader.getController();
+            PesquisarController pesquisarControllerController = loader.getController();
 
             stage.getScene().setRoot(telaPesquisar);
 
@@ -59,6 +58,7 @@ public class ListaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
             Stage stage = (Stage) rootPane.getScene().getWindow();
+            LoginController loginController = loader.getController();
             stage.getScene().setRoot(telaLogin);
 
         } catch (IOException e) {
@@ -68,7 +68,7 @@ public class ListaController {
 
     public void inicializar() {}
     public void entrarLista() {}
-    public void criarLista() {}
+    public void criarLista() throws SQLException {}
 
 
 }

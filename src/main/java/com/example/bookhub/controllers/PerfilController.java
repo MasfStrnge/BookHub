@@ -2,15 +2,12 @@ package com.example.bookhub.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
-import java.io.File;
 import java.io.IOException;
 
 import javafx.stage.Stage;
@@ -22,19 +19,7 @@ public class PerfilController {
     @FXML private ImageView imagemFundo,imagemPerfil, botaoPesquisar,botaoListas,botaoLogout;
     @FXML private HBox conteinerFavoritos;
 
-
-    public void initialize() {
-// Define imagens iniciais (padrão)
-        carregarImagemFundo("img/imagemPerfilDefault.jpg");
-        carregarFotoPerfil("img/imagemPerfilDefault.jpg");
-
-        // Faz as imagens se ajustarem ao tamanho dos Panes
-        imagemFundo.fitWidthProperty().bind(painelImagemFundo.widthProperty());
-        imagemFundo.fitHeightProperty().bind(painelImagemFundo.heightProperty());
-
-        imagemPerfil.fitWidthProperty().bind(painelFotoPerfil.widthProperty());
-        imagemPerfil.fitHeightProperty().bind(painelFotoPerfil.heightProperty());
-    }
+    public void inicializar() {}
 
     public void botaoPesquisar(MouseEvent mouseEvent) {
         try {
@@ -48,20 +33,21 @@ public class PerfilController {
             e.printStackTrace();
         }
     }
-
     public void botaoListas(MouseEvent mouseEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/lista-view.fxml"));
-            BorderPane telaListas = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listas-view.fxml"));
+            BorderPane telaLista = loader.load();
+
             Stage stage = (Stage) rootPane.getScene().getWindow();
+
             ListaController listaController = loader.getController();
-            stage.getScene().setRoot(telaListas);
+
+            stage.getScene().setRoot(telaLista);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public void botaoLogout(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
@@ -74,39 +60,5 @@ public class PerfilController {
             e.printStackTrace();
         }
     }
-
-
-    private void carregarImagemFundo(String caminho) {
-        imagemFundo.setImage(new Image("file:" + caminho, true));
-    }
-    private void carregarFotoPerfil(String caminho) {
-        imagemPerfil.setImage(new Image("file:" + caminho, true));
-    }
-
-    // ======= Métodos para o usuário editar =======
-    @FXML private void editarImagemFundo() {
-        File arquivo = escolherImagem();
-        if (arquivo != null) {
-            imagemFundo.setImage(new Image(arquivo.toURI().toString()));
-        }
-    }
-
-    @FXML private void editarFotoPerfil() {
-        File arquivo = escolherImagem();
-        if (arquivo != null) {
-            imagemPerfil.setImage(new Image(arquivo.toURI().toString()));
-        }
-    }
-
-    private File escolherImagem() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Escolher imagem");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg")
-        );
-        return fileChooser.showOpenDialog(new Stage());
-    }
-
-    public void setUsuarioLogado(String usuario) {
-    }
+    public void setUsuarioLogado(String usuario) {}
 }

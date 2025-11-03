@@ -131,11 +131,11 @@
     <left>
         <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/search.png" />
                     </image></ImageView>
-                <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" onMouseClicked="#botaoPerfil" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/home.png" />
                     </image>
@@ -145,7 +145,7 @@
                         <Image url="@../img/favorite.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" onMouseClicked="#botaoLogout" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/exit.png" />
                     </image>

@@ -1,6 +1,5 @@
 package com.example.bookhub.controllers;
 
-
 import com.example.bookhub.utils.ConexaoDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +59,6 @@ public class LoginController {
             }
         }
     }
-
 
     public void registrarConta(MouseEvent mouseEvent) {
         try {

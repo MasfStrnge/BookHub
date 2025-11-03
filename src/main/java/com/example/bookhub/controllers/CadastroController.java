@@ -36,7 +36,7 @@ public class CadastroController {
         try (Connection conexaoDB = ConexaoDB.getConnection()) {
 
             PreparedStatement sql = conexaoDB.prepareStatement(
-                    "INSERT INTO usuarios (nome_usuario, senha, email, nome, sobrenome) VALUES (?, ?, ?, ?, ?)");
+                    "INSERT INTO usuario (nome_usuario, senha, email, nome, sobrenome) VALUES (?, ?, ?, ?, ?)");
 
             sql.setString(1,usuario);
             sql.setString(2,senha);

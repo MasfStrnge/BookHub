@@ -2,8 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/pesquisa-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.PesquisarController">
@@ -42,15 +44,50 @@
                               <Insets left="30.0" />
                            </padding>
                         </Pane>
-                     </children></Pane>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect></Pane>
                   <Pane fx:id="livro2" layoutX="10.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#consultarLivro" prefHeight="224.0" prefWidth="1269.0" styleClass="InfoLivro" stylesheets="@../style/pesquisa-stylesheet.css">
                      <VBox.margin>
                         <Insets top="17.0" />
-                     </VBox.margin></Pane>
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="194.0" prefWidth="144.0">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Pane>
+                     </children></Pane>
                   <Pane fx:id="livro3" layoutX="10.0" layoutY="254.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#consultarLivro" prefHeight="224.0" prefWidth="1269.0" styleClass="InfoLivro" stylesheets="@../style/pesquisa-stylesheet.css">
                      <VBox.margin>
                         <Insets top="17.0" />
-                     </VBox.margin></Pane>
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="194.0" prefWidth="144.0">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Pane>
+                     </children></Pane>
                     </children>
                 </VBox>
                   <Separator prefWidth="200.0">
@@ -71,7 +108,7 @@
     <left>
         <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/search.png" />
                     </image></ImageView>
@@ -80,7 +117,7 @@
                         <Image url="@../img/home.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" onMouseClicked="#botaoLista" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" onMouseClicked="#botaoListas" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../img/favorite.png" />
                     </image>
