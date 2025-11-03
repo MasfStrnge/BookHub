@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ProfileControler">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.PerfilController">
    <center>
-      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+      <StackPane fx:id="painelPerfil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="painelImagemFundo" layoutX="136.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="192.0" prefWidth="1269.0" styleClass="PainelImagemFundo" stylesheets="@../style/profile-stylesheet.css">
                <StackPane.margin>
@@ -54,21 +54,21 @@
    <left>
       <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../img/search.png" />
                </image></ImageView>
-            <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../img/home.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" onMouseClicked="#botaoListas" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../img/favorite.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" onMouseClicked="#botaoLogout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../img/exit.png" />
                </image>

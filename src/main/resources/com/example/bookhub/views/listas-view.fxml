@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ListaController">
+    <center>
+        <StackPane fx:id="painelPerfil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+            <children>
+                <Label stylesheets="@../style/profile-stylesheet.css" text="Suas Listas">
+                    <font>
+                        <Font name="Alexandria Regular" size="28.0" />
+                    </font>
+                    <StackPane.margin>
+                        <Insets top="-600.0" />
+                    </StackPane.margin>
+                </Label>
+                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                    <StackPane.margin>
+                        <Insets bottom="900.0" right="1050.0" />
+                    </StackPane.margin>
+                    <image>
+                        <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
+                    </image>
+                </ImageView>
+            <VBox fx:id="conteinerListas" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="711.0" prefWidth="1269.0" styleClass="ConteinerListas" stylesheets="@../style/lista-stylesheet.css">
+               <StackPane.margin>
+                  <Insets top="300.0" />
+               </StackPane.margin>
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Pane fx:id="listaFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
+                     <VBox.margin>
+                        <Insets top="17.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="17.0" text="Favoritos">
+                           <font>
+                              <Font name="Alexandria Regular" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="TWO_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect></Pane>
+                  <Pane fx:id="listaLendo" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
+                     <VBox.margin>
+                        <Insets top="17.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label layoutX="14.0" layoutY="17.0" text="Lendo">
+                           <font>
+                              <Font name="Alexandria Regular" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Pane fx:id="listaQueroLer" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
+                     <VBox.margin>
+                        <Insets top="17.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label layoutX="14.0" layoutY="17.0" text="Quero Ler">
+                           <font>
+                              <Font name="Alexandria Regular" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Pane fx:id="ListaLidos" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
+                     <VBox.margin>
+                        <Insets top="17.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label layoutX="14.0" layoutY="17.0" text="Lidos">
+                           <font>
+                              <Font name="Alexandria Regular" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Button fx:id="botaoCriarLista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#criarLista" prefHeight="66.0" prefWidth="1269.0" text="Button">
+                     <VBox.margin>
+                        <Insets top="17.0" />
+                     </VBox.margin>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX">
+                           <color>
+                              <Color opacity="0.30000001192092896" />
+                           </color>
+                        </DropShadow>
+                     </effect></Button>
+                  <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin></StackPane>
+    </center>
+    <left>
+        <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/search.png" />
+                    </image></ImageView>
+                <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/home.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/favorite.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/exit.png" />
+                    </image>
+                </ImageView>
+            </children></Pane>
+    </left>
+</BorderPane>

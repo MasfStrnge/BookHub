@@ -7,6 +7,7 @@ module com.example.bookhub {
     requires org.kordamp.ikonli.javafx;
     requires java.sql;
     requires javafx.graphics;
+    requires java.desktop;
 
     opens com.example.bookhub to javafx.fxml;
     exports com.example.bookhub;

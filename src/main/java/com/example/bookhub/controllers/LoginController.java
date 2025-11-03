@@ -9,8 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -33,7 +35,7 @@ public class LoginController {
         try (Connection conexaoDB = ConexaoDB.getConnection()) {
 
             PreparedStatement stmt = conexaoDB.prepareStatement(
-                    "SELECT 1 FROM usuarios WHERE nome_usuario = ? AND senha = ?");
+                    "SELECT 1 FROM usuario WHERE nome_usuario = ? AND senha = ?");
 
             stmt.setString(1, usuario);
             stmt.setString(2, senha);
@@ -42,10 +44,15 @@ public class LoginController {
 
             if (resultado.next()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/profile-view.fxml"));
-                    Pane telaLogin = loader.load();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
+                    BorderPane telaPerfil = loader.load();
 
-                    rootPane.getChildren().setAll(telaLogin);
+                    Stage stage = (Stage) rootPane.getScene().getWindow();
+
+                    PerfilController perfilController = loader.getController();
+                    perfilController.setUsuarioLogado(usuario);
+
+                    stage.getScene().setRoot(telaPerfil);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -57,7 +64,7 @@ public class LoginController {
 
     public void registrarConta(MouseEvent mouseEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/register-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/cadastro-view.fxml"));
             Pane telaRegistro = loader.load();
 
             rootPane.getChildren().setAll(telaRegistro);
