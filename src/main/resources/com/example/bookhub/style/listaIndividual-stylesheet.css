@@ -21,24 +21,19 @@
     -fx-pref-width: 184px;
 }
 
-.BarraPesquisa{
-    -fx-background-radius: 20;
-    -fx-prompt-text-fill: #000000;
-    -fx-text-fill:#000000 ;
+.ConteinerLivrosDaLista {
 }
 
-.ConteinerLivros {
-    -fx-background-size: cover; /* Ajusta a imagem ao tamanho do Pane */
-    -fx-background-position: center center;
-    -fx-background-repeat: no-repeat;
+.InfoLivrosDaLista {
+    -fx-background-color: #880D0D;
+    -fx-background-radius: 5px;
     -fx-border-color: #000000;
     -fx-border-width: 1px;
-    -fx-border-radius: 15px;
-    -fx-pref-height: 350px;
-    -fx-pref-width: 240px;
+    -fx-border-radius: 5px;
+
 }
 
-.InfoLivro {
+.LivroDaLista {
     -fx-background-color: #D9D9D9;
     -fx-background-radius: 5px;
     -fx-border-color: #000000;
@@ -46,10 +41,5 @@
     -fx-border-radius: 5px;
 }
 
-.ConteinerCapaLivro {
-    -fx-background-color: #605151;
-    -fx-border-color: #000000;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-}
+
 

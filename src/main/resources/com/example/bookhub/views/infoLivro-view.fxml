@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/infoLivro-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.InfoLivroController">
+    <center>
+        <StackPane fx:id="painelInfoLivro" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/infoLivro-stylesheet.css" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                    <StackPane.margin>
+                        <Insets bottom="900.0" right="1050.0" />
+                    </StackPane.margin>
+                    <image>
+                        <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
+                    </image>
+                </ImageView>
+            <Pane fx:id="conteinerCapaLivro" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="498.0" prefWidth="331.0">
+               <StackPane.margin>
+                  <Insets left="55.0" right="950.0" />
+               </StackPane.margin>
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
+            <TextArea fx:id="descricaoLivro" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="877.0">
+               <StackPane.margin>
+                  <Insets left="350.0" top="200.0" />
+               </StackPane.margin>
+            </TextArea>
+                <Label stylesheets="@../style/profile-stylesheet.css" text="Titulo">
+                    <font>
+                        <Font name="Alexandria Regular" size="28.0" />
+                    </font>
+               <StackPane.margin>
+                  <Insets bottom="450.0" right="450.0" />
+               </StackPane.margin>
+                </Label>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin></StackPane>
+    </center>
+    <left>
+        <Pane fx:id="Menu" opacity="0.83" prefHeight="373.0" prefWidth="110.0" styleClass="Menu" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="botaoPesquisar" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="37.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                    <image>
+                        <Image url="@../img/search.png" />
+                    </image></ImageView>
+                <ImageView fx:id="botaoPerfil" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="185.0" onMouseClicked="#botaoPerfil" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                    <image>
+                        <Image url="@../img/home.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="botaoListas" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="348.0" onMouseClicked="#botaoListas" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                    <image>
+                        <Image url="@../img/favorite.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="botaoLogout" fitHeight="52.0" fitWidth="52.0" layoutX="20.0" layoutY="939.0" onMouseClicked="#botaoLogout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                    <image>
+                        <Image url="@../img/exit.png" />
+                    </image>
+                </ImageView>
+            </children></Pane>
+    </left>
+</BorderPane>

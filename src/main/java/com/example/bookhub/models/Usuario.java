@@ -7,30 +7,35 @@ public class Usuario {
     private String nomeUsuario;
     private String email;
     private String senha;
+    private Perfil perfil;
 
 
    public Usuario() {}
 
-   public Usuario(String nome, String sobrenome, String nomeUsuario, String email, String senha) {
+   public Usuario(String nome, String sobrenome, String nomeUsuario, String email, String senha, Perfil perfil) {
        this.nome = nome;
        this.sobrenome = sobrenome;
        this.nomeUsuario = nomeUsuario;
        this.email = email;
        this.senha = senha;
+       this.perfil = perfil;
    }
 
     public String getNome() { return nome; }
-    public void setNome() { this.nome = nome;}
+    public void setNome(String nome) { this.nome = nome;}
 
     public String getSobrenome() { return sobrenome;}
-    void setSobrenome() {this.sobrenome = sobrenome;}
+    public void setSobrenome(String sobrenome) {this.sobrenome = sobrenome;}
 
     public String getNomeUsuario() { return nomeUsuario;}
-    void setNomeUsuario() {this.nomeUsuario = nomeUsuario;}
+    public void setNomeUsuario(String nomeUsuario) {this.nomeUsuario = this.nomeUsuario;}
 
-    public String getEmail() { return nomeUsuario;}
-    void setEmail() {this.email = email;}
+    public String getEmail() { return email;}
+    public void setEmail(String email) {this.email = email;}
 
     public String getSenha() {return senha;}
-    void setSenha() {this.senha = senha;}
+    public void setSenha(String senha) {this.senha = senha;}
+
+    public Perfil getPerfil() {return perfil;}
+    public void setPerfil(Perfil perfil) {this.perfil = perfil;}
 }
