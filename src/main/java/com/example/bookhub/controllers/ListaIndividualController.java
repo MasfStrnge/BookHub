@@ -1,5 +1,6 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.models.Sessao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -54,6 +55,7 @@ public class ListaIndividualController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
+        Sessao.limpar();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
@@ -83,4 +85,5 @@ public class ListaIndividualController {
 
     public void adicionarLivro() throws SQLException {}
     public void consultarInfoLivro() throws SQLException {}
+
 }

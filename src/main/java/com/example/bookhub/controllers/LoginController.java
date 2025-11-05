@@ -1,6 +1,8 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.utils.ConexaoDB;
+import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.models.Sessao;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -14,7 +16,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
 
 public class LoginController {
 
@@ -22,45 +23,44 @@ public class LoginController {
     @FXML private StackPane rootPane;
     @FXML private TextField CampoNomeDeUsuario;
     @FXML private PasswordField CampoDeSenha;
-    @FXML private Label Cadastrar_se;
+    @FXML private Label Cadastrar_se, LabelErro;
     @FXML private Button BotaoEntrar;
 
     @FXML
-    protected void entrar() throws SQLException {
+    public void entrar() {
+        System.out.println("Método entrar() foi chamado!");
 
-        String usuario = this.CampoNomeDeUsuario.getText().trim(); // Guarda string digitada
+        String nomeUsuario = this.CampoNomeDeUsuario.getText().trim(); // Guarda string digitada
         String senha = this.CampoDeSenha.getText().trim();
 
-        try (Connection conexaoDB = ConexaoDB.getConnection()) {
+        Usuario usuario = new Usuario();
+        usuario.setNomeUsuario(nomeUsuario);
+        usuario.setSenha(senha);
 
-            PreparedStatement stmt = conexaoDB.prepareStatement(
-                    "SELECT 1 FROM usuario WHERE nome_usuario = ? AND senha = ?");
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        boolean loginValido = usuarioDAO.login(usuario);
 
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
+        if (loginValido) {
+            try {
+                Sessao.setUsuario(usuario);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
+                BorderPane telaPerfil = loader.load();
 
-            ResultSet resultado = stmt.executeQuery();
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                PerfilController perfilController = loader.getController();
+                stage.getScene().setRoot(telaPerfil);
 
-            if (resultado.next()) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
-                    BorderPane telaPerfil = loader.load();
-
-                    Stage stage = (Stage) rootPane.getScene().getWindow();
-
-                    PerfilController perfilController = loader.getController();
-                    perfilController.setUsuarioLogado(usuario);
-
-                    stage.getScene().setRoot(telaPerfil);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+        } else {
+            LabelErro.setText("Usuário ou senha inválidos!");
         }
     }
 
-    public void registrarConta(MouseEvent mouseEvent) {
+    @FXML
+    protected void registrarConta(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/cadastro-view.fxml"));
             Pane telaRegistro = loader.load();

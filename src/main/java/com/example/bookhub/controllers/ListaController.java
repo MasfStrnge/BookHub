@@ -1,5 +1,7 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.models.Sessao;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -18,7 +20,7 @@ import javafx.stage.Stage;
 public class ListaController {
     @FXML private BorderPane rootPane;
     @FXML private StackPane painelListas;
-    @FXML private Pane listaFavoritos, listaLendo,ListaQueroLer,listaLidos; //  Panes definido no FXML
+    @FXML private Pane listaFavoritos, listaLendo, ListaQueroLer, listaLidos; //  Panes definido no FXML
     @FXML private ImageView  botaoPesquisar,botaoPerfil,botaoLogout;
     @FXML private VBox conteinerListas;
     @FXML private Button botaoCriarLista;
@@ -54,6 +56,8 @@ public class ListaController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
+        Sessao.limpar();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
@@ -66,9 +70,23 @@ public class ListaController {
         }
     }
 
-    public void inicializar() {}
-    public void entrarLista() {}
-    public void criarLista() throws SQLException {}
+    @FXML private void initialize() {
+        Usuario usuarioLogado = Sessao.getUsuario();
+    }
+        public void entrarLista(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listaIndividual-view.fxml"));
+            BorderPane telaListaIndividual = loader.load();
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            ListaIndividualController listaIndividualController = loader.getController();
+            stage.getScene().setRoot(telaListaIndividual);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void criarLista()  {}
 
 
 }

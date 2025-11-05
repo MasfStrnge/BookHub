@@ -28,7 +28,7 @@
                         <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                     </image>
                 </ImageView>
-            <Pane fx:id="listaLendo1" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="39.0" prefWidth="1269.0" styleClass="InfoLivrosDaLista" stylesheets="@../style/listaIndividual-stylesheet.css">
+            <Pane fx:id="InfoLivrosLista" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="39.0" prefWidth="1269.0" styleClass="InfoLivrosDaLista" stylesheets="@../style/listaIndividual-stylesheet.css">
                <children>
                   <Label layoutX="21.0" layoutY="6.0" text="Titulo" textFill="WHITE">
                      <font>
@@ -62,7 +62,7 @@
                         <Insets top="300.0" />
                     </StackPane.margin>
                     <children>
-                        <Pane fx:id="listaFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="42.0" prefWidth="1269.0" styleClass="LivroDaLista" stylesheets="@../style/lista-stylesheet.css">
+                        <Pane fx:id="listaFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="1269.0" styleClass="LivroDaLista" stylesheets="@../style/lista-stylesheet.css">
                             <VBox.margin>
                                 <Insets top="17.0" />
                             </VBox.margin>

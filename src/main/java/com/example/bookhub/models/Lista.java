@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class Lista {
+    private int id_lista;
     private String nome_lista;
     private Integer qt_livro;
     private Date data_criacao;
@@ -16,6 +17,9 @@ public class Lista {
         this.qt_livro = qt_livro;
         this.data_criacao = data_criacao;
     }
+
+    public int getId_lista() {return id_lista;}
+    public void setId_lista(int id_lista) {this.id_lista = id_lista;}
 
     public String getNome_lista() {return nome_lista;}
     public void setNome_lista(String nome_lista) {this.nome_lista = nome_lista;}

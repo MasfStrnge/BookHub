@@ -1,7 +1,7 @@
 package com.example.bookhub.models;
 
 public class Usuario {
-
+    private int id_usuario;
     private String nome;
     private String sobrenome;
     private String nomeUsuario;
@@ -10,7 +10,9 @@ public class Usuario {
     private Perfil perfil;
 
 
-   public Usuario() {}
+   public Usuario() {
+       this.perfil = new Perfil();
+   }
 
    public Usuario(String nome, String sobrenome, String nomeUsuario, String email, String senha, Perfil perfil) {
        this.nome = nome;
@@ -21,6 +23,9 @@ public class Usuario {
        this.perfil = perfil;
    }
 
+    public int getId_usuario() {return id_usuario;}
+    public void setId_usuario(int id_usuario) {this.id_usuario = id_usuario;}
+
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome;}
 
@@ -28,7 +33,7 @@ public class Usuario {
     public void setSobrenome(String sobrenome) {this.sobrenome = sobrenome;}
 
     public String getNomeUsuario() { return nomeUsuario;}
-    public void setNomeUsuario(String nomeUsuario) {this.nomeUsuario = this.nomeUsuario;}
+    public void setNomeUsuario(String nomeUsuario) {this.nomeUsuario = nomeUsuario;}
 
     public String getEmail() { return email;}
     public void setEmail(String email) {this.email = email;}

@@ -24,15 +24,15 @@
                   </font>
               </TextField>
       
-              <Button fx:id="entrar" defaultButton="true" layoutX="240.0" layoutY="487.0" mnemonicParsing="false" onAction="#entrar" styleClass="BotaoEntrar" stylesheets="@../style/login-stylesheet.css" text="ENTRAR" textFill="WHITE">
+              <Button fx:id="BotaoEntrar" defaultButton="true" layoutX="240.0" layoutY="487.0" mnemonicParsing="false" onAction="#entrar" styleClass="BotaoEntrar" stylesheets="@../style/login-stylesheet.css" text="ENTRAR" textFill="WHITE">
                   <font>
                         <Font name="DejaVu Sans Condensed Bold" size="13.0" />
                   </font>
               </Button>
       
-              <Label layoutX="194.0" layoutY="168.0" text="Realizar Login">
+              <Label fx:id="realizarLogin" layoutX="215.0" layoutY="186.0" text="Realizar Login">
                   <font>
-                      <Font name="Alexandria Regular" size="36.0" />
+                      <Font name="Alexandria Regular" size="30.0" />
                   </font>
               </Label>
       
@@ -47,6 +47,10 @@
                       <Font name="Alexandria Regular" size="16.0" />
                   </font>
               </Label>
+            <Label fx:id="LabelErro" layoutX="304.0" layoutY="235.0" text="Label" textFill="red" visible="false">
+               <font>
+                  <Font name="Alexandria Regular" size="12.0" />
+               </font></Label>
       
           </children>
                <opaqueInsets>

@@ -30,7 +30,7 @@
                   <Font name="Alexandria Regular" size="28.0" />
                </font>
                <StackPane.margin>
-                  <Insets top="-150.0" />
+                  <Insets bottom="150.0" />
                </StackPane.margin>
             </Label>
             <HBox fx:id="conteinerFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="1269.0" styleClass="FavoritosDiv" stylesheets="@../style/profile-stylesheet.css">
@@ -46,6 +46,14 @@
                   <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                </image>
             </ImageView>
+            <Label fx:id="labelNomeDeUsuario" layoutX="541.0" layoutY="453.0" stylesheets="@../style/profile-stylesheet.css" text="NomeDeUsuario">
+               <font>
+                  <Font name="Alexandria Regular" size="25.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="380.0" right="550.0" />
+               </StackPane.margin>
+            </Label>
          </children>
          <BorderPane.margin>
             <Insets />

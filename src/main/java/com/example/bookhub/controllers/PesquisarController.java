@@ -1,5 +1,7 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.models.Sessao;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,9 @@ public class PesquisarController {
     @FXML private ImageView botaoListas,botaoPerfil,botaoLogout;
     @FXML private VBox conteinerLivros;
 
+    @FXML private void initialize() {
+        Usuario usuarioLogado = Sessao.getUsuario();
+    }
 
     public void botaoPerfil(MouseEvent mouseEvent) {
         try {
@@ -38,6 +43,8 @@ public class PesquisarController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
+        Sessao.limpar();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
@@ -66,5 +73,6 @@ public class PesquisarController {
 
     public void inicializar() {}
     public void consultarLivro() {}
+    public void pesquisarLivro() {}
 
 }

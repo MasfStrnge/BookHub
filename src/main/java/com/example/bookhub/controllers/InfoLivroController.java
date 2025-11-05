@@ -1,5 +1,7 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.models.Sessao;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +21,10 @@ public class InfoLivroController {
     @FXML private Pane conteinerCapaLivro;
     @FXML private TextArea descricaoLivro;//  Panes definido no FXML
     @FXML private ImageView  botaoPesquisar,botaoPerfil,botaoLogout,botaoListas;
+
+    @FXML private void initialize() {
+        Usuario usuarioLogado = Sessao.getUsuario();
+    }
 
     public void botaoPesquisar(MouseEvent mouseEvent) {
         try {
@@ -51,6 +57,7 @@ public class InfoLivroController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
+        Sessao.limpar();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();

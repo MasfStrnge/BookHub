@@ -1,8 +1,10 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.utils.ConexaoDB;
+import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -11,9 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
 
 public class CadastroController {
 
@@ -26,36 +26,45 @@ public class CadastroController {
     @FXML private ImageView BotaoBack;
     @FXML private Button BotaoCriar;
 
-    public void CriarConta() throws SQLException {
+    @FXML protected void CriarConta() {
         String nome = this.CampoDeNome.getText().trim();
         String sobrenome = this.CampoDeSobrenome.getText().trim();
-        String usuario = this.CampoDeUsuario.getText().trim();
+        String nomeUsuario = this.CampoDeUsuario.getText().trim();
         String email = this.CampoDeEmail.getText().trim();
         String senha = this.CampoDeSenha.getText().trim();
 
-        try (Connection conexaoDB = ConexaoDB.getConnection()) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setSobrenome(sobrenome);
+        usuario.setNomeUsuario(nomeUsuario);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
 
-            PreparedStatement sql = conexaoDB.prepareStatement(
-                    "INSERT INTO usuario (nome_usuario, senha, email, nome, sobrenome) VALUES (?, ?, ?, ?, ?)");
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        boolean cadastroValido = usuarioDAO.criarConta(usuario);
 
-            sql.setString(1,usuario);
-            sql.setString(2,senha);
-            sql.setString(3,email);
-            sql.setString(4,nome);
-            sql.setString(5,sobrenome);
+        if (cadastroValido) {
+            CampoDeNome.clear();
+            CampoDeSobrenome.clear();
+            CampoDeUsuario.clear();
+            CampoDeEmail.clear();
+            CampoDeSenha.clear();
 
-            int resultado = sql.executeUpdate();
-
-            if(resultado > 0) {
-                System.out.println("CONTA CRIADA COM SUCESSO!");
-            }
-            else {
-                System.out.println("FALHA NA CRIAÇÃO DA CONTA");
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Usuário cadastrado");
+            alert.setHeaderText("CONTA CRIADA COM SUCESSO!");
+            alert.setContentText("Retorne a pagina de login para acessar sua conta.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Atenção");
+            alert.setHeaderText("FALHA NA CRIAÇÃO DA CONTA");
+            alert.setContentText("Verifique as informações digitadas");
+            alert.showAndWait();
         }
     }
 
-    public void Voltar(MouseEvent mouseEvent) {
+    @FXML protected void Voltar(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
@@ -67,3 +76,5 @@ public class CadastroController {
         }
     }
 }
+
+

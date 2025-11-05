@@ -1,7 +1,11 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.models.Sessao;
+import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class PerfilController {
@@ -18,8 +23,31 @@ public class PerfilController {
     @FXML private Pane painelFotoPerfil, painelImagemFundo; //  Panes definido no FXML
     @FXML private ImageView imagemFundo,imagemPerfil, botaoPesquisar,botaoListas,botaoLogout;
     @FXML private HBox conteinerFavoritos;
+    @FXML private Label labelNomeDeUsuario;
 
-    public void inicializar() {}
+    private Usuario usuarioLogado;
+
+    @FXML private void initialize() {
+        usuarioLogado = Sessao.getUsuario();
+        atualizarPerfil();
+
+        //imagemFundo.fitWidthProperty().bind(painelImagemFundo.widthProperty());
+        //imagemFundo.fitHeightProperty().bind(painelImagemFundo.heightProperty());
+       // imagemFundo.setPreserveRatio(false); // cobre 100% do painel
+       // imagemFundo.setSmooth(true);
+
+        //imagemPerfil.fitWidthProperty().bind(painelFotoPerfil.widthProperty());
+       // imagemPerfil.fitHeightProperty().bind(painelFotoPerfil.heightProperty());
+        //imagemPerfil.setPreserveRatio(true);
+       // imagemPerfil.setSmooth(true);
+
+    }
+    private void atualizarPerfil() {
+        labelNomeDeUsuario.setText(usuarioLogado.getNomeUsuario());
+       // imagemPerfil.setImage(new Image(getClass().getResource(usuarioLogado.getPerfil().getFotoPerfil()).toExternalForm()));
+       // imagemFundo.setImage(new Image(getClass().getResource(usuarioLogado.getPerfil().getFotoPerfil()).toExternalForm()));
+    }
+
 
     public void botaoPesquisar(MouseEvent mouseEvent) {
         try {
@@ -49,6 +77,9 @@ public class PerfilController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
+
+        Sessao.limpar();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
             Pane telaLogin = loader.load();
@@ -60,5 +91,5 @@ public class PerfilController {
             e.printStackTrace();
         }
     }
-    public void setUsuarioLogado(String usuario) {}
+
 }

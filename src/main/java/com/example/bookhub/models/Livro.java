@@ -3,6 +3,7 @@ package com.example.bookhub.models;
 import java.util.Date;
 
 public class Livro {
+    private int id_livro;
     private String capa;
     private String titulo;
     private String autor;
@@ -24,6 +25,9 @@ public class Livro {
         this.qt_pagina = qt_pagina;
         this.idioma = idioma;
     }
+
+    public int getId_livro() {return id_livro;}
+    public void setId_livro(int id_livro) {this.id_livro = id_livro;}
 
     public String getCapa() {return capa;}
     public void setCapa(String capa) {this.capa = capa;}
