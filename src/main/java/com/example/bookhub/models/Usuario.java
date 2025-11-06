@@ -10,9 +10,7 @@ public class Usuario {
     private Perfil perfil;
 
 
-   public Usuario() {
-       this.perfil = new Perfil();
-   }
+   public Usuario() {}
 
    public Usuario(String nome, String sobrenome, String nomeUsuario, String email, String senha, Perfil perfil) {
        this.nome = nome;

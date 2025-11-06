@@ -108,7 +108,7 @@
                         </DropShadow>
                      </effect>
                   </Pane>
-                  <Button fx:id="botaoCriarLista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#criarLista" prefHeight="66.0" prefWidth="1269.0" text="Button">
+                  <Button fx:id="botaoCriarLista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#criarLista" prefHeight="66.0" prefWidth="1269.0" text="Criar nova Lista">
                      <VBox.margin>
                         <Insets top="17.0" />
                      </VBox.margin>

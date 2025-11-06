@@ -14,6 +14,7 @@ public class Perfil {
         //this.fotoPerfil = "/com/example/bookhub/img/imagemPerfilDefault.jpg";
         ///this.imagem_fundo = "/com/example/bookhub/img/imagemFundoDefault.jpg";
 
+
         this.listas = new ArrayList<>();
         listas.add(new Lista("Favoritos",0,null));
         listas.add(new Lista("Lendo",0,null));

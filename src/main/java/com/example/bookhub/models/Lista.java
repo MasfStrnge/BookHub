@@ -10,7 +10,9 @@ public class Lista {
     private Date data_criacao;
     private List<Livro> livros;
 
-    public Lista() {}
+    public Lista() {
+        this.qt_livro = 0;
+    }
 
     public Lista(String nome_lista, Integer qt_livro, Date data_criacao) {
         this.nome_lista = nome_lista;

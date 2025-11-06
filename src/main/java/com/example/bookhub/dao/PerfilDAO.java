@@ -1,6 +1,7 @@
 package com.example.bookhub.dao;
 
 import com.example.bookhub.models.Perfil;
+import com.example.bookhub.models.Usuario;
 import com.example.bookhub.utils.ConexaoDB;
 
 import java.sql.Connection;
@@ -48,4 +49,5 @@ public class PerfilDAO {
     }
 
     }
+
 }

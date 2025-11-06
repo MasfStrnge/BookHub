@@ -47,8 +47,8 @@ public class Livro {
     public String getGenero() {return genero;}
     public void setGenero(String genero) {this.genero = genero;}
 
-    public int getQuantPagina() {return qt_pagina;}
-    public void setQuantPagina(int quantPagina) {this.qt_pagina = quantPagina;}
+    public int getQt_pagina() {return qt_pagina;}
+    public void setQt_pagina(int qt_pagina) {this.qt_pagina = qt_pagina;}
 
     public String getIdioma() {return idioma;}
     public void setIdioma(String idioma) {this.idioma = idioma;}

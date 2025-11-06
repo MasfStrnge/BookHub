@@ -1,9 +1,14 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.dao.ListaDAO;
+import com.example.bookhub.models.Lista;
+import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Sessao;
 import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.image.ImageView;
@@ -13,7 +18,7 @@ import javafx.scene.layout.*;
 
 import java.awt.*;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.stage.Stage;
 
@@ -71,9 +76,11 @@ public class ListaController {
     }
 
     @FXML private void initialize() {
+
         Usuario usuarioLogado = Sessao.getUsuario();
     }
-        public void entrarLista(MouseEvent mouseEvent) {
+
+    public void entrarLista(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listaIndividual-view.fxml"));
             BorderPane telaListaIndividual = loader.load();
@@ -86,7 +93,43 @@ public class ListaController {
             e.printStackTrace();
         }
     }
-    public void criarLista()  {}
+
+    @FXML public void criarLista()  {
+       TextInputDialog textInputDialog = new TextInputDialog();
+       textInputDialog.setTitle("Nome da nova lista");
+       textInputDialog.setHeaderText("Digite o nome da nova lista");
+       textInputDialog.setContentText("Nova Lista");
+
+       Optional<String> resultado = textInputDialog.showAndWait();
+
+       if(resultado.isPresent() && !resultado.get().trim().isEmpty()) {
+           String nomeNovaLista = resultado.get().trim();
+           Lista novaLista = new Lista();
+           Perfil perfil = new Perfil();
+           novaLista.setNome_lista(nomeNovaLista);
+
+           ListaDAO listaDAO = new ListaDAO();
+           boolean criacaoValida = listaDAO.criarLista(novaLista,perfil);
+
+           if(criacaoValida) {
+               Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.CONFIRMATION);
+               confirmacaoCriacaoLista.setTitle("Confirmacao");
+               confirmacaoCriacaoLista.setHeaderText("LISTA CRIADA COM SUCESSO");
+               confirmacaoCriacaoLista.showAndWait();
+
+               Pane novoPainelLista = new Pane();
+               Label nomeLista = new Label();
+               nomeLista.setText(nomeNovaLista);
+
+               conteinerListas.getChildren().add(novoPainelLista);
+           }
+
+
+       } else {
+           System.out.println("erro");
+       }
+
+   }
 
 
 }
