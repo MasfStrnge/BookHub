@@ -1,5 +1,6 @@
 package com.example.bookhub.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Livro {
@@ -7,15 +8,17 @@ public class Livro {
     private String capa;
     private String titulo;
     private String autor;
-    private Date ano_publicacao;
+    private LocalDate ano_publicacao;
     private String isbn;
     private String genero;
     private int qt_pagina;
     private String idioma;
+    private String descricao;
+    private LocalDate dataAdicionado;
 
     public Livro() {}
 
-    public Livro(String capa, String titulo, String autor, Date ano_publicacao, String isbn,String genero, int qt_pagina, String idioma) {
+    public Livro(String capa, String titulo, String autor, LocalDate ano_publicacao, String isbn,String genero, int qt_pagina, String idioma, String descricao) {
         this.capa = capa;
         this.titulo = titulo;
         this.autor = autor;
@@ -24,6 +27,7 @@ public class Livro {
         this.genero = genero;
         this.qt_pagina = qt_pagina;
         this.idioma = idioma;
+        this.descricao = descricao;
     }
 
     public int getId_livro() {return id_livro;}
@@ -33,13 +37,13 @@ public class Livro {
     public void setCapa(String capa) {this.capa = capa;}
 
     public String getTitulo(){ return titulo; }
-    void setTitulo(String titulo) {this.titulo = titulo;}
+    public void setTitulo(String titulo) {this.titulo = titulo;}
 
     public String getAutor() {return autor;}
-    void setAutor(String autor) {this.autor = autor;}
+    public void setAutor(String autor) {this.autor = autor;}
 
-    public Date getPublicacao() {return ano_publicacao;}
-    public void setPublicacao(Date publicacao) {this.ano_publicacao = publicacao;}
+    public LocalDate getPublicacao() {return ano_publicacao;}
+    public void setPublicacao(LocalDate publicacao) {this.ano_publicacao = publicacao;}
 
     public String getIsbn() {return isbn;}
     public void setIsbn(String isbn) {this.isbn = isbn;}
@@ -52,4 +56,10 @@ public class Livro {
 
     public String getIdioma() {return idioma;}
     public void setIdioma(String idioma) {this.idioma = idioma;}
+
+    public LocalDate getDataAdicionado() {return dataAdicionado;}
+    public void setDataAdicionado(LocalDate dataAdicionado) {this.dataAdicionado = dataAdicionado;}
+
+    public String getDescricao() {return descricao;}
+    public void setDescricao(String descricao) {this.descricao = descricao;}
 }

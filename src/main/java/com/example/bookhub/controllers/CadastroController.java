@@ -1,19 +1,19 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.dao.ListaDAO;
 import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.models.Lista;
+import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-
 
 public class CadastroController {
 
@@ -23,8 +23,6 @@ public class CadastroController {
     @FXML private TextField CampoDeUsuario;
     @FXML private TextField CampoDeEmail;
     @FXML private TextField CampoDeSenha;
-    @FXML private ImageView BotaoBack;
-    @FXML private Button BotaoCriar;
 
     @FXML protected void CriarConta() {
         String nome = this.CampoDeNome.getText().trim();
@@ -32,6 +30,15 @@ public class CadastroController {
         String nomeUsuario = this.CampoDeUsuario.getText().trim();
         String email = this.CampoDeEmail.getText().trim();
         String senha = this.CampoDeSenha.getText().trim();
+
+        if (nome.isEmpty() || sobrenome.isEmpty() || nomeUsuario.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Campos obrigatórios");
+            alert.setHeaderText("Preencha todos os campos!");
+            alert.setContentText("Nenhum campo pode ficar em branco.");
+            alert.showAndWait();
+            return;
+        }
 
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
@@ -41,7 +48,11 @@ public class CadastroController {
         usuario.setSenha(senha);
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        boolean cadastroValido = usuarioDAO.criarConta(usuario);
+        Perfil perfil = new Perfil();
+        ListaDAO listaDAO = new ListaDAO();
+        Lista lista = new Lista();
+        boolean cadastroValido = usuarioDAO.criarConta(usuario,perfil,lista);
+
 
         if (cadastroValido) {
             CampoDeNome.clear();
@@ -49,6 +60,7 @@ public class CadastroController {
             CampoDeUsuario.clear();
             CampoDeEmail.clear();
             CampoDeSenha.clear();
+
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Usuário cadastrado");

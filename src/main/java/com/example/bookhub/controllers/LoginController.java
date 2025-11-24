@@ -1,11 +1,12 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.dao.PerfilDAO;
 import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Sessao;
 import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,12 +20,10 @@ import java.io.IOException;
 
 public class LoginController {
 
-    @FXML private Pane loginPane;
     @FXML private StackPane rootPane;
     @FXML private TextField CampoNomeDeUsuario;
     @FXML private PasswordField CampoDeSenha;
-    @FXML private Label Cadastrar_se, LabelErro;
-    @FXML private Button BotaoEntrar;
+    @FXML private Label  LabelErro;
 
     @FXML
     public void entrar() {
@@ -38,11 +37,15 @@ public class LoginController {
         usuario.setSenha(senha);
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        boolean loginValido = usuarioDAO.login(usuario);
+        Usuario usuarioLogin = usuarioDAO.login(nomeUsuario,senha);
 
-        if (loginValido) {
+        if (usuarioLogin != null) {
             try {
-                Sessao.setUsuario(usuario);
+                PerfilDAO perfilDAO = new PerfilDAO();
+                Perfil perfil = perfilDAO.buscarPerfilPorUsuario(usuarioLogin);
+                usuarioLogin.setPerfil(perfil);
+
+                Sessao.setUsuario(usuarioLogin);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
                 BorderPane telaPerfil = loader.load();
 

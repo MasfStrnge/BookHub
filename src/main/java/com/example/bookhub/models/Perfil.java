@@ -1,5 +1,6 @@
 package com.example.bookhub.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +12,14 @@ public class Perfil {
     private List<Lista> listas;
 
     public Perfil() {
-        //this.fotoPerfil = "/com/example/bookhub/img/imagemPerfilDefault.jpg";
-        ///this.imagem_fundo = "/com/example/bookhub/img/imagemFundoDefault.jpg";
-
+        this.fotoPerfil = "/com/example/bookhub/img/imagemPerfilDefault.jpg";
+        this.imagem_fundo = "/com/example/bookhub/img/imagemFundoDefault.jpg";
 
         this.listas = new ArrayList<>();
-        listas.add(new Lista("Favoritos",0,null));
-        listas.add(new Lista("Lendo",0,null));
-        listas.add(new Lista("Quero Ler",0,null));
-        listas.add(new Lista("Lidos",0,null));
+        listas.add(new Lista(0,"Favoritos",0,LocalDate.now()));
+        listas.add(new Lista(0,"Lendo",0,LocalDate.now()));
+        listas.add(new Lista(0,"Quero Ler",0,LocalDate.now()));
+        listas.add(new Lista(0,"Lidos",0, LocalDate.now()));
     }
 
     public Perfil(String fotoPerfil, String imagem_fundo) {

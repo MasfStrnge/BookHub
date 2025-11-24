@@ -1,30 +1,35 @@
 package com.example.bookhub.controllers;
 
+import com.example.bookhub.dao.ListaDAO;
+import com.example.bookhub.models.Lista;
+import com.example.bookhub.models.Livro;
 import com.example.bookhub.models.Sessao;
 import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import java.awt.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
+
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class InfoLivroController {
 
     @FXML private BorderPane rootPane;
-    @FXML private StackPane painelInfoLivro;
     @FXML private Pane conteinerCapaLivro;
-    @FXML private TextArea descricaoLivro;//  Panes definido no FXML
-    @FXML private ImageView  botaoPesquisar,botaoPerfil,botaoLogout,botaoListas;
-
-    @FXML private void initialize() {
-        Usuario usuarioLogado = Sessao.getUsuario();
-    }
+    @FXML private Label tituloLivro, autorLivro, publicacaoLivro,qtPaginasLivro;
+    @FXML private ImageView  capaLivro;
+    @FXML private TextArea textoDescricao;
+    private Livro livro;
 
     public void botaoPesquisar(MouseEvent mouseEvent) {
         try {
@@ -57,16 +62,25 @@ public class InfoLivroController {
         }
     }
     public void botaoLogout(MouseEvent mouseEvent) {
-        Sessao.limpar();
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
-            Pane telaLogin = loader.load();
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            LoginController loginController = loader.getController();
-            stage.getScene().setRoot(telaLogin);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmação de Logout");
+        alerta.setHeaderText("Tem certeza que deseja sair?");
+        alerta.setContentText("Você será desconectada da sua sessão atual.");
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        Optional<ButtonType> resultado = alerta.showAndWait();
+
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            Sessao.limpar();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
+                Pane telaLogin = loader.load();
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                LoginController loginController = loader.getController();
+                stage.getScene().setRoot(telaLogin);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     public void botaoListas(MouseEvent mouseEvent) {
@@ -85,4 +99,91 @@ public class InfoLivroController {
         }
     }
 
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+        carregarLivro();
+    }
+
+    private void carregarLivro() {
+        Usuario usuarioLogado = Sessao.getUsuario();
+
+        tituloLivro.setText(livro.getTitulo());
+        autorLivro.setText(livro.getAutor());
+        publicacaoLivro.setText("Publicado em: " + String.valueOf(livro.getPublicacao()));
+        qtPaginasLivro.setText("Paginas: " + String.valueOf(livro.getQt_pagina()));
+        textoDescricao.setText(livro.getDescricao());
+
+        capaLivro.setPreserveRatio(false);
+        capaLivro.fitWidthProperty().bind(conteinerCapaLivro.widthProperty());
+        capaLivro.fitHeightProperty().bind(conteinerCapaLivro.heightProperty());
+        capaLivro.setImage(new Image(getClass().getResource("/com/example/bookhub/" + livro.getCapa()).toExternalForm()));
+
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(capaLivro.fitWidthProperty());
+        clip.heightProperty().bind(capaLivro.fitHeightProperty());
+        clip.setArcWidth(30);
+        clip.setArcHeight(30);
+        capaLivro.setClip(clip);
+
+    }
+
+    public void adicionarLivroLista(Livro livro) {
+        Usuario usuarioLogado = Sessao.getUsuario();
+        ListaDAO listaDAO = new ListaDAO();
+
+        List<Lista> listas = listaDAO.buscarListasPorPerfil(usuarioLogado.getPerfil().getId_perfil());
+
+        if (listas.isEmpty()) {
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Nenhuma lista encontrada");
+            alerta.setHeaderText("Você ainda não possui listas");
+            alerta.showAndWait();
+            return;
+        }
+
+        List<String> nomesListas = listas.stream()
+                .map(Lista::getNome_lista)
+                .toList();
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(nomesListas.get(0), nomesListas);
+        dialog.setTitle("Adicionar livro à lista");
+        dialog.setHeaderText("Escolha a lista para adicionar o livro");
+        dialog.setContentText("Lista:");
+
+        Optional<String> resultado = dialog.showAndWait();
+
+        if (resultado.isPresent()) {
+            String nomeListaEscolhida = resultado.get();
+
+            Lista listaEscolhida = listas.stream()
+                    .filter(l -> l.getNome_lista().equals(nomeListaEscolhida))
+                    .findFirst()
+                    .orElse(null);
+
+            if (listaEscolhida != null) {
+                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro);
+
+                if (sucesso) {
+                    Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+                    confirmacao.setTitle("Confirmação");
+                    confirmacao.setHeaderText("Livro adicionado com sucesso à lista " + nomeListaEscolhida);
+                    confirmacao.showAndWait();
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Não foi possível adicionar o livro à lista");
+                    erro.showAndWait();
+                }
+            }
+        }
+    }
+
+    @FXML private void initialize() {
+        Usuario usuarioLogado = Sessao.getUsuario();
+    }
+
+
+    public void adicionarLivroLista(MouseEvent mouseEvent) {
+        adicionarLivroLista(livro);
+    }
 }

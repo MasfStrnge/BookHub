@@ -20,100 +20,49 @@
                         <Insets top="-800.0" />
                     </StackPane.margin>
                 </Label>
-                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
                     <StackPane.margin>
-                        <Insets bottom="900.0" right="1050.0" />
+                        <Insets bottom="900.0" left="20.0" />
                     </StackPane.margin>
                     <image>
                         <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                     </image>
                 </ImageView>
-                <VBox fx:id="conteinerLivros" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="715.0" prefWidth="1269.0">
-                    <StackPane.margin>
-                        <Insets top="200.0" />
-                    </StackPane.margin>
-                    <children>
-                        <Pane fx:id="livro1" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#consultarLivro" prefHeight="224.0" prefWidth="1269.0" styleClass="InfoLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                            <VBox.margin>
-                                <Insets top="17.0" />
-                            </VBox.margin>
-                     <children>
-                        <Pane layoutX="32.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="194.0" prefWidth="144.0" styleClass="ConteinerCapaLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label layoutX="167.0" layoutY="5.0" text="Titulo" />
-                           </children>
-                        </Pane>
-                     </children>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect></Pane>
-                  <Pane fx:id="livro2" layoutX="10.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#consultarLivro" prefHeight="224.0" prefWidth="1269.0" styleClass="InfoLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Pane layoutX="32.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="194.0" prefWidth="144.0" styleClass="ConteinerCapaLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </Pane>
-                     </children></Pane>
-                  <Pane fx:id="livro3" layoutX="10.0" layoutY="254.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#consultarLivro" prefHeight="224.0" prefWidth="1269.0" styleClass="InfoLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                     <children>
-                        <Pane layoutX="34.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="194.0" prefWidth="144.0" styleClass="ConteinerCapaLivro" stylesheets="@../style/pesquisa-stylesheet.css">
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </Pane>
-                     </children></Pane>
-                    </children>
-                </VBox>
-            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="951.0" promptText="Digite o título de um livro..." styleClass="BarraPesquisa" stylesheets="@../style/pesquisa-stylesheet.css">
+            <TextField fx:id="barraPesquisa" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#pesquisarLivro" prefHeight="40.0" prefWidth="951.0" promptText="Digite um título, autor, ano, genero ou  ISBN de um livro..." styleClass="BarraPesquisa" stylesheets="@../style/pesquisa-stylesheet.css" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
-                  <Insets top="-660.0" />
+                  <Insets bottom="660.0" top="185.0" />
                </StackPane.margin>
                <font>
                   <Font name="Alexandria Regular" size="14.0" />
                </font>
                <effect>
-                  <DropShadow blurType="ONE_PASS_BOX">
+                  <DropShadow blurType="ONE_PASS_BOX" height="0.0" offsetY="4.0" radius="3.9475" width="17.79">
                      <color>
                         <Color opacity="0.30000001192092896" />
                      </color>
                   </DropShadow>
                </effect>
             </TextField>
+            <Separator prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
+               <StackPane.margin>
+                  <Insets left="44.0" right="44.0" top="950.0" />
+               </StackPane.margin>
+            </Separator>
+            <Separator prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
+               <StackPane.margin>
+                  <Insets bottom="530.0" left="44.0" right="44.0" />
+               </StackPane.margin>
+            </Separator>
+
+                <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" prefWidth="1269.0" styleClass="scroll" stylesheets="@../style/pesquisa-stylesheet.css" vbarPolicy="ALWAYS">
+                    <content>
+                        <VBox fx:id="conteinerLivros" spacing="20" styleClass="ConteinerLivros" stylesheets="@../style/pesquisa-stylesheet.css" />
+                    </content>
+                    <StackPane.margin>
+                        <Insets bottom="104.0" left="44.0" right="44.0" top="300.0" />
+                    </StackPane.margin>
+                </ScrollPane>
+
             </children>
             <BorderPane.margin>
                 <Insets />

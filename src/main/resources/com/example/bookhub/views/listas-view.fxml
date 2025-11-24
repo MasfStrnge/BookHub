@@ -2,10 +2,8 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ListaController">
@@ -14,113 +12,56 @@
             <children>
                 <Label stylesheets="@../style/profile-stylesheet.css" text="Suas Listas">
                     <font>
-                        <Font name="Alexandria Regular" size="28.0" />
+                        <Font name="Alexandria Regular" size="36.0" />
                     </font>
                     <StackPane.margin>
-                        <Insets top="-600.0" />
+                        <Insets bottom="650.0" />
                     </StackPane.margin>
                 </Label>
-                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
                     <StackPane.margin>
-                        <Insets bottom="900.0" right="1050.0" />
+                        <Insets bottom="900.0" left="20.0" />
                     </StackPane.margin>
                     <image>
                         <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                     </image>
                 </ImageView>
-            <VBox fx:id="conteinerListas" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="711.0" prefWidth="1269.0" styleClass="ConteinerListas" stylesheets="@../style/lista-stylesheet.css">
+
+                <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" prefWidth="1269.0" styleClass="scroll" stylesheets="@../style/lista-stylesheet.css" vbarPolicy="ALWAYS">
+               <content>
+                  <VBox fx:id="conteinerListas" styleClass="ConteinerListas" stylesheets="@../style/lista-stylesheet.css" />
+               </content>
                <StackPane.margin>
-                  <Insets top="300.0" />
+                  <Insets bottom="104.0" left="44.0" right="44.0" top="320.0" />
                </StackPane.margin>
-               <children>
-                  <Pane fx:id="listaFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="17.0" text="Favoritos">
-                           <font>
-                              <Font name="Alexandria Regular" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <effect>
-                        <DropShadow blurType="TWO_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect></Pane>
-                  <Pane fx:id="listaLendo" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label layoutX="14.0" layoutY="17.0" text="Lendo">
-                           <font>
-                              <Font name="Alexandria Regular" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Pane fx:id="listaQueroLer" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label layoutX="14.0" layoutY="17.0" text="Quero Ler">
-                           <font>
-                              <Font name="Alexandria Regular" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Pane fx:id="ListaLidos" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#entrarLista" prefHeight="66.0" prefWidth="1269.0" styleClass="Lista" stylesheets="@../style/lista-stylesheet.css">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label layoutX="14.0" layoutY="17.0" text="Lidos">
-                           <font>
-                              <Font name="Alexandria Regular" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Button fx:id="botaoCriarLista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#criarLista" prefHeight="66.0" prefWidth="1269.0" text="Criar nova Lista">
-                     <VBox.margin>
-                        <Insets top="17.0" />
-                     </VBox.margin>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX">
-                           <color>
-                              <Color opacity="0.30000001192092896" />
-                           </color>
-                        </DropShadow>
-                     </effect></Button>
-               </children>
-            </VBox>
+            </ScrollPane>
+            <Separator prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
+               <StackPane.margin>
+                  <Insets bottom="500.0" left="44.0" right="44.0" />
+               </StackPane.margin>
+            </Separator>
+            <Separator layoutX="54.0" layoutY="293.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
+               <StackPane.margin>
+                  <Insets left="44.0" right="44.0" top="950.0" />
+               </StackPane.margin>
+            </Separator>
+            <ImageView fx:id="botaoCriarLista" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#criarLista" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+               <image>
+                  <Image url="@../img/plus-large-svgrepo-com.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="45.0" top="230.0" />
+               </StackPane.margin>
+            </ImageView>
+            <Label contentDisplay="RIGHT" style="-fx-text-fill: #880D0D;" text="Criar Lista" StackPane.alignment="TOP_RIGHT">
+               <font>
+                  <Font name="Alexandria Regular" size="22.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets right="120.0" top="240.0" />
+               </StackPane.margin>
+            </Label>
+
             </children>
             <BorderPane.margin>
                 <Insets />

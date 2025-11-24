@@ -1,7 +1,9 @@
 @font-face {
-    font-family: 'Alexandria'; /* The name you'll use in CSS */
-    src: url("../fonts/Alexandria-VariableFont_wght.ttf"); /* Path relative to the CSS file or the root of the classpath */
+    font-family: 'Alexandria';
+    src: url("../fonts/Alexandria-VariableFont_wght.ttf");
 }
+
+
 
 .root {
     -fx-background-color: #E9E3E1;
@@ -21,14 +23,46 @@
     -fx-pref-width: 184px;
 }
 
+.scroll {
+}
+
 .ConteinerListas {
+    -fx-spacing: 15px;
+}
+
+.Labels {
+    -fx-text-fill: #000000;
 }
 
 .Lista {
-    -fx-background-color: #D9D9D9;
+    -fx-background-color: rgba(217,217,217,0.6);
     -fx-background-radius: 5px;
-    -fx-border-color: #000000;
+    -fx-border-color: rgba(0,0,0,0.3);
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
+    -fx-text-fill: #000000;
+    -fx-opacity: 1;
+    -fx-transition: all 0.4s;
+
 }
+
+.Lista:hover {
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+    -fx-background-color: rgba(159, 159, 159, 0.9);
+}
+
+.botao {
+    -fx-cursor: hand;
+    -fx-opacity: 1;
+    -fx-background-color: rgba(217, 217, 217, 0.7);
+}
+
+.botao:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-opacity: 0.8;
+}
+
+

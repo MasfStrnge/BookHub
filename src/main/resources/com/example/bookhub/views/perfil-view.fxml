@@ -8,50 +8,79 @@
 
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.PerfilController">
    <center>
-      <StackPane fx:id="painelPerfil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
+      <StackPane fx:id="painelPerfil" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="painelImagemFundo" layoutX="136.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="192.0" prefWidth="1269.0" styleClass="PainelImagemFundo" stylesheets="@../style/profile-stylesheet.css">
+            <Pane fx:id="painelImagemFundo" layoutX="136.0" layoutY="192.0" maxHeight="-Infinity" onMouseClicked="#trocarImagemFundo" prefHeight="192.0" prefWidth="1269.0" styleClass="PainelImagemFundo" stylesheets="@../style/profile-stylesheet.css">
                <StackPane.margin>
-                  <Insets top="-625.0" />
+                  <Insets bottom="625.0" left="44.0" right="44.0" />
                </StackPane.margin>
                <children>
                   <ImageView fx:id="imagemFundo" fitHeight="193.0" fitWidth="1268.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
-            <Pane fx:id="painelFotoPerfil" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="156.0" prefWidth="160.0" styleClass="PainelFotoPerfil" stylesheets="@../style/profile-stylesheet.css">
+            <Pane fx:id="painelFotoPerfil" accessibleText="Trocar de Foto de Perfil" layoutX="136.0" layoutY="175.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#trocarImagemPerfil" prefHeight="156.0" prefWidth="160.0" styleClass="PainelFotoPerfil" stylesheets="@../style/profile-stylesheet.css" StackPane.alignment="TOP_LEFT">
                <StackPane.margin>
-                  <Insets right="1000.0" top="-420.0" />
+                  <Insets left="105.0" top="250.0" />
                </StackPane.margin>
                <children>
-                  <ImageView fx:id="imagemPerfil" fitHeight="110.0" fitWidth="122.0" layoutX="38.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imagemPerfil" fitHeight="110.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" />
                </children></Pane>
             <Label stylesheets="@../style/profile-stylesheet.css" text="Seus Livros Favoritos">
                <font>
                   <Font name="Alexandria Regular" size="28.0" />
                </font>
                <StackPane.margin>
-                  <Insets bottom="150.0" />
+                  <Insets bottom="200.0" />
                </StackPane.margin>
             </Label>
-            <HBox fx:id="conteinerFavoritos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="440.0" prefWidth="1269.0" styleClass="FavoritosDiv" stylesheets="@../style/profile-stylesheet.css">
+            <Separator prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
                <StackPane.margin>
-                  <Insets top="500.0" />
+                  <Insets bottom="50.0" left="44.0" right="44.0" />
                </StackPane.margin>
-            </HBox>
-            <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+            </Separator>
+            <ScrollPane fitToHeight="true" hbarPolicy="ALWAYS" prefWidth="1269.0" styleClass="scroll" stylesheets="@../style/profile-stylesheet.css" vbarPolicy="NEVER">
+               <content>
+                  <HBox fx:id="conteinerFavoritos" spacing="80.0" styleClass="FavoritosDiv" stylesheets="@../style/profile-stylesheet.css" />
+               </content>
                <StackPane.margin>
-                  <Insets bottom="900.0" right="1050.0" />
+                  <Insets bottom="120.0" left="44.0" right="44.0" top="550.0" />
+               </StackPane.margin>
+            </ScrollPane>
+            <Separator prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #983131;">
+               <StackPane.margin>
+                  <Insets left="44.0" right="44.0" top="900.0" />
+               </StackPane.margin>
+            </Separator>
+            <Label fx:id="labelNomeDeUsuario" contentDisplay="RIGHT" layoutX="541.0" layoutY="453.0" stylesheets="@../style/profile-stylesheet.css" text="NomeDeUsuario" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Alexandria Regular" size="25.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="300.0" top="330.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="170.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="900.0" left="20.0" />
                </StackPane.margin>
                <image>
                   <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                </image>
             </ImageView>
-            <Label fx:id="labelNomeDeUsuario" layoutX="541.0" layoutY="453.0" stylesheets="@../style/profile-stylesheet.css" text="NomeDeUsuario">
+            <Label fx:id="totalLivrosLidos" alignment="CENTER" contentDisplay="RIGHT" text="Total de livros lidos:" StackPane.alignment="TOP_LEFT">
                <font>
-                  <Font name="Alexandria Regular" size="25.0" />
+                  <Font size="20.0" />
                </font>
                <StackPane.margin>
-                  <Insets bottom="380.0" right="550.0" />
+                  <Insets left="300.0" top="390.0" />
+               </StackPane.margin>
+            </Label>
+            <Label fx:id="generoFavorito" alignment="CENTER" contentDisplay="RIGHT" layoutX="310.0" layoutY="370.0" text="Genero Favorito:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="300.0" top="360.0" />
                </StackPane.margin>
             </Label>
          </children>

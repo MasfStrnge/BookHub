@@ -8,17 +8,52 @@ import com.example.bookhub.utils.ConexaoDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListaDAO {
+
+    public List<Lista> buscarListasPorPerfil(int id_perfil) {
+
+        String sql = "SELECT id_lista, nome_lista, qt_livro, data_criacao " +
+                     "FROM lista WHERE id_perfil = ?";
+
+        List<Lista> listas = new ArrayList<>();
+
+        try (Connection conexaoDB = ConexaoDB.getConnection();
+             PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
+
+            stmt.setInt(1, id_perfil);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Lista lista = new Lista();
+                    lista.setId_lista(rs.getInt("id_lista"));
+                    lista.setNome_lista(rs.getString("nome_lista"));
+                    lista.setQt_livro(rs.getInt("qt_livro"));
+                    lista.setData_criacao(rs.getDate("data_criacao").toLocalDate());
+
+                    listas.add(lista);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listas;
+    }
     public boolean adicionarLivroLista(Lista lista, Livro livro) {
 
-        String sql = "INSERT INTO lista_livro (id_lista,id_livro) VALUES (?,?)";
+        String sql = "INSERT INTO lista_livro (id_lista,id_livro,data_adicionado) VALUES (?,?,?)";
 
         try(Connection conexaoDB = ConexaoDB.getConnection();
             PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
 
             stmt.setInt(1, lista.getId_lista());
             stmt.setInt(2, livro.getId_livro());
+            stmt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
 
             int resultado = stmt.executeUpdate();
 
@@ -29,7 +64,6 @@ public class ListaDAO {
             return false;
         }
     }
-
     public boolean retirarLivroLista(Lista lista, Livro livro) {
 
         String sql = "DELETE FROM lista_livro WHERE id_lista = ? AND id_livro = ?";
@@ -49,30 +83,36 @@ public class ListaDAO {
             return false;
         }
     }
-
     public boolean criarLista(Lista lista, Perfil perfil) {
         String sql = "INSERT INTO lista (id_perfil, nome_lista, qt_livro, data_criacao) VALUES (?,?,?,?)";
 
         try (Connection conexaoDB = ConexaoDB.getConnection();
-             PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
+             PreparedStatement stmt = conexaoDB.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setInt(1,perfil.getId_perfil());
-            stmt.setString(2,lista.getNome_lista());
-            stmt.setInt(3,lista.getQt_livro());
-            stmt.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            stmt.setInt(1, perfil.getId_perfil());
+            stmt.setString(2, lista.getNome_lista());
+            stmt.setInt(3, lista.getQt_livro());
+            stmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
 
             int resultado = stmt.executeUpdate();
 
-            return resultado > 0;
+            if (resultado > 0) {
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        lista.setId_lista(rs.getInt(1));
+                    }
+                }
+                return true;
+            }
+
+            return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
     }
-
-    public boolean excluirLista(Lista lista) {
+    public boolean deletarLista(Lista lista) {
         String sql = "DELETE FROM lista WHERE id_lista = ?";
 
         try (Connection conexaoDB = ConexaoDB.getConnection();
@@ -90,8 +130,7 @@ public class ListaDAO {
         }
 
     }
-
-    public boolean alterarNomeLista(Lista lista,String novoNomeLista) {
+    public boolean renomearLista(Lista lista,String novoNomeLista) {
 
         String sql = "UPDATE lista SET nome_lista = ? WHERE id_lista = ?";
 
@@ -111,6 +150,29 @@ public class ListaDAO {
             }
 
         }
+    public Lista buscarListaFavoritos(int idPerfil) {
+        String sql = "SELECT * FROM lista WHERE id_perfil = ? AND nome_lista = 'Favoritos'";
+
+        try (Connection conexaoDB = ConexaoDB.getConnection();
+             PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
+
+            stmt.setInt(1, idPerfil);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Lista lista = new Lista();
+                lista.setId_lista(rs.getInt("id_lista"));
+                lista.setNome_lista(rs.getString("nome_lista"));
+                return lista;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }
 
