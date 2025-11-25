@@ -1,10 +1,8 @@
 package com.example.bookhub.controllers;
 
 import com.example.bookhub.dao.ListaDAO;
-import com.example.bookhub.models.Lista;
-import com.example.bookhub.models.Livro;
-import com.example.bookhub.models.Sessao;
-import com.example.bookhub.models.Usuario;
+import com.example.bookhub.models.*;
+import com.example.bookhub.utils.AvaliacaoUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -161,7 +159,26 @@ public class InfoLivroController {
                     .orElse(null);
 
             if (listaEscolhida != null) {
-                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro);
+                StatusDoLivro status;
+
+                switch (nomeListaEscolhida) {
+                    case "Favoritos":
+                        status = StatusDoLivro.FAVORITO;
+                        break;
+                    case "Quero Ler":
+                        status = StatusDoLivro.QUERO_LER;
+                        break;
+                    case "Lendo":
+                        status = StatusDoLivro.LENDO;
+                        break;
+                    case "Lidos":
+                        status = StatusDoLivro.LIDO;
+                        break;
+                    default:
+                        status = StatusDoLivro.INDEFINIDO;
+                }
+
+                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro, status, AvaliacaoUI.obterAvaliacaoDoLivro(livro));
 
                 if (sucesso) {
                     Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);

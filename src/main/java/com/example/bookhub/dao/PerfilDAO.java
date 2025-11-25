@@ -1,6 +1,7 @@
 package com.example.bookhub.dao;
 
 import com.example.bookhub.models.Lista;
+import com.example.bookhub.models.ListaPersonalizada;
 import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Usuario;
 import com.example.bookhub.utils.ConexaoDB;
@@ -8,6 +9,7 @@ import com.example.bookhub.utils.ConexaoDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class PerfilDAO {
 
@@ -50,7 +52,7 @@ public class PerfilDAO {
         }
 
     }
-    public boolean criarPerfil(Perfil perfil, Usuario usuario, Lista lista) {
+    public boolean criarPerfil(Perfil perfil, Usuario usuario) {
         String sqlPerfil = "INSERT INTO perfil(id_usuario,fotoPerfil,imagem_fundo) VALUES (?,?,?)";
         String sqlListas = "INSERT INTO lista(id_perfil, nome_lista, qt_livro, data_criacao) VALUES (?,?,?,?)";
 
@@ -64,32 +66,44 @@ public class PerfilDAO {
             int resultadoPerfil = stmtPerfil.executeUpdate();
 
             if (resultadoPerfil > 0) {
-                perfil.setId_usuario(usuario.getId_usuario());
                 ResultSet chave = stmtPerfil.getGeneratedKeys();
-                if(chave.next()) {
+                if (chave.next()) {
                     int idPerfil = chave.getInt(1);
-                    lista.setId_perfil(idPerfil);
+                    perfil.setId_perfil(idPerfil);
 
-                    for (Lista listas : perfil.getListas()) {
-                        stmtListas.setInt(1,idPerfil);
-                        stmtListas.setString(2,listas.getNome_lista());
-                        stmtListas.setInt(3,listas.getQt_livro());
-                        stmtListas.setDate(4, java.sql.Date.valueOf(listas.getData_criacao()));
+                    Lista[] listasPadrao = {
+                            perfil.getListaFavoritos(),
+                            perfil.getListaQueroLer(),
+                            perfil.getListaLendo(),
+                            perfil.getListaLidos()
+                    };
+
+                    for (Lista lista : listasPadrao) {
+                        stmtListas.setInt(1, idPerfil);
+                        stmtListas.setString(2, lista.getNome_lista());
+                        stmtListas.setInt(3, lista.getQt_livro());
+                        stmtListas.setDate(4, java.sql.Date.valueOf(lista.getData_criacao()));
                         stmtListas.executeUpdate();
                     }
+
+                    for (Lista listaPersonalizada : perfil.getListasPersonalizadas()) {
+                        stmtListas.setInt(1, idPerfil);
+                        stmtListas.setString(2, listaPersonalizada.getNome_lista());
+                        stmtListas.setInt(3, listaPersonalizada.getQt_livro());
+                        stmtListas.setDate(4, java.sql.Date.valueOf(listaPersonalizada.getData_criacao()));
+                        stmtListas.executeUpdate();
+                    }
+
                     return true;
                 }
-
-            } else {
-                System.out.println("ERRO NA CRIAÇAO DE PERFIL");
-                return false;
             }
+
+            return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        return false;
     }
     public Perfil buscarPerfilPorUsuario(Usuario usuario) {
         String sqlPerfil = "SELECT * FROM perfil WHERE id_usuario = ?";
@@ -109,19 +123,46 @@ public class PerfilDAO {
                 perfil.setFotoPerfil(rsPerfil.getString("fotoPerfil"));
                 perfil.setImagem_fundo(rsPerfil.getString("imagem_fundo"));
 
-                // Carregar listas associadas ao perfil
                 stmtListas.setInt(1, perfil.getId_perfil());
                 ResultSet rsListas = stmtListas.executeQuery();
 
                 while (rsListas.next()) {
-                    Lista lista = new Lista();
-                    lista.setId_lista(rsListas.getInt("id_lista"));
-                    lista.setId_perfil(rsListas.getInt("id_perfil"));
-                    lista.setNome_lista(rsListas.getString("nome_lista"));
-                    lista.setQt_livro(rsListas.getInt("qt_livro"));
-                    lista.setData_criacao(rsListas.getDate("data_criacao").toLocalDate());
+                    String nomeLista = rsListas.getString("nome_lista");
+                    int idLista = rsListas.getInt("id_lista");
+                    int qtLivros = rsListas.getInt("qt_livro");
+                    LocalDate dataCriacao = rsListas.getDate("data_criacao").toLocalDate();
 
-                    perfil.getListas().add(lista);
+                    switch (nomeLista) {
+                        case "Favoritos":
+                            perfil.getListaFavoritos().setId_lista(idLista);
+                            perfil.getListaFavoritos().setId_perfil(perfil.getId_perfil());
+                            perfil.getListaFavoritos().setQt_livro(qtLivros);
+                            perfil.getListaFavoritos().setData_criacao(dataCriacao);
+                            break;
+                        case "Quero Ler":
+                            perfil.getListaQueroLer().setId_lista(idLista);
+                            perfil.getListaQueroLer().setId_perfil(perfil.getId_perfil());
+                            perfil.getListaQueroLer().setQt_livro(qtLivros);
+                            perfil.getListaQueroLer().setData_criacao(dataCriacao);
+                            break;
+                        case "Lendo":
+                            perfil.getListaLendo().setId_lista(idLista);
+                            perfil.getListaLendo().setId_perfil(perfil.getId_perfil());
+                            perfil.getListaLendo().setQt_livro(qtLivros);
+                            perfil.getListaLendo().setData_criacao(dataCriacao);
+                            break;
+                        case "Lidos":
+                            perfil.getListaLidos().setId_lista(idLista);
+                            perfil.getListaLidos().setId_perfil(perfil.getId_perfil());
+                            perfil.getListaLidos().setQt_livro(qtLivros);
+                            perfil.getListaLidos().setData_criacao(dataCriacao);
+                            break;
+                        default:
+                            ListaPersonalizada listaPers = new ListaPersonalizada(perfil.getId_perfil(), nomeLista, qtLivros, dataCriacao);
+                            listaPers.setId_lista(idLista);
+                            perfil.getListasPersonalizadas().add(listaPers);
+                            break;
+                    }
                 }
 
                 return perfil;

@@ -2,10 +2,8 @@ package com.example.bookhub.controllers;
 
 import com.example.bookhub.dao.ListaDAO;
 import com.example.bookhub.dao.LivroDAO;
-import com.example.bookhub.models.Lista;
-import com.example.bookhub.models.Livro;
-import com.example.bookhub.models.Sessao;
-import com.example.bookhub.models.Usuario;
+import com.example.bookhub.models.*;
+import com.example.bookhub.utils.AvaliacaoUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -109,7 +107,8 @@ public class PesquisarController {
         }
     }
 
-    @FXML  public void adicionarLivroLista(Livro livro) {
+    @FXML
+    public void adicionarLivroLista(Livro livro) {
         Usuario usuarioLogado = Sessao.getUsuario();
         ListaDAO listaDAO = new ListaDAO();
 
@@ -127,7 +126,6 @@ public class PesquisarController {
                 .map(Lista::getNome_lista)
                 .toList();
 
-        // Criar ChoiceDialog com as opções
         ChoiceDialog<String> dialog = new ChoiceDialog<>(nomesListas.get(0), nomesListas);
         dialog.setTitle("Adicionar livro à lista");
         dialog.setHeaderText("Escolha a lista para adicionar o livro");
@@ -138,14 +136,71 @@ public class PesquisarController {
         if (resultado.isPresent()) {
             String nomeListaEscolhida = resultado.get();
 
-            // Encontrar objeto Lista correspondente
             Lista listaEscolhida = listas.stream()
                     .filter(l -> l.getNome_lista().equals(nomeListaEscolhida))
                     .findFirst()
                     .orElse(null);
 
             if (listaEscolhida != null) {
-                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro);
+                StatusDoLivro status;
+                Avaliacao avaliacao = null; // agora usa o model Avaliacao
+
+                switch (nomeListaEscolhida) {
+                    case "Favoritos":
+                        status = StatusDoLivro.FAVORITO;
+
+                        try {
+                            // usa AvaliacaoUI para obter avaliação visual
+                            avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
+
+                            ListaFavoritos listaFavoritos = new ListaFavoritos(
+                                    listaEscolhida.getId_perfil(),
+                                    listaEscolhida.getNome_lista(),
+                                    listaEscolhida.getQt_livro(),
+                                    listaEscolhida.getData_criacao()
+                            );
+                            ListaLidos listaLidos = ListaLidos.obterListaLidos(usuarioLogado);
+
+                            listaFavoritos.adicionarFavorito(livro, avaliacao, listaLidos);
+
+                            listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
+
+                            Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+                            confirmacao.setTitle("Confirmação");
+                            confirmacao.setHeaderText("Livro adicionado com sucesso aos Favoritos e também em Lidos");
+                            confirmacao.showAndWait();
+                        } catch (IllegalArgumentException e) {
+                            Alert erro = new Alert(Alert.AlertType.ERROR);
+                            erro.setTitle("Erro");
+                            erro.setHeaderText(e.getMessage());
+                            erro.showAndWait();
+                        }
+                        return;
+
+                    case "Quero Ler":
+                        status = StatusDoLivro.QUERO_LER;
+                        break;
+
+                    case "Lendo":
+                        status = StatusDoLivro.LENDO;
+                        break;
+
+                    case "Lidos":
+                        status = StatusDoLivro.LIDO;
+                        // aqui também usa AvaliacaoUI
+                        try {
+                            avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
+                        } catch (IllegalArgumentException e) {
+                            // se usuário cancelar, pode deixar null
+                            avaliacao = null;
+                        }
+                        break;
+
+                    default:
+                        status = StatusDoLivro.INDEFINIDO;
+                }
+
+                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
 
                 if (sucesso) {
                     Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);

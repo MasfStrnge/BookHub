@@ -1,7 +1,7 @@
 package com.example.bookhub.models;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Livro {
     private int id_livro;
@@ -15,10 +15,12 @@ public class Livro {
     private String idioma;
     private String descricao;
     private LocalDate dataAdicionado;
+    private StatusDoLivro status;
+    private Avaliacao avaliacao;
 
     public Livro() {}
 
-    public Livro(String capa, String titulo, String autor, LocalDate ano_publicacao, String isbn,String genero, int qt_pagina, String idioma, String descricao) {
+    public Livro(String capa, String titulo, String autor, LocalDate ano_publicacao, String isbn,String genero, int qt_pagina, String idioma, String descricao, StatusDoLivro status,Avaliacao avaliacao) {
         this.capa = capa;
         this.titulo = titulo;
         this.autor = autor;
@@ -28,6 +30,8 @@ public class Livro {
         this.qt_pagina = qt_pagina;
         this.idioma = idioma;
         this.descricao = descricao;
+        this.status = StatusDoLivro.INDEFINIDO;
+        this.avaliacao = avaliacao;
     }
 
     public int getId_livro() {return id_livro;}
@@ -62,4 +66,10 @@ public class Livro {
 
     public String getDescricao() {return descricao;}
     public void setDescricao(String descricao) {this.descricao = descricao;}
+
+    public StatusDoLivro getStatus() {return status;}
+    public void setStatus(StatusDoLivro status) {this.status = status;}
+
+    public Avaliacao getAvaliacao() {return avaliacao;}
+    public void setAvaliacao(Avaliacao avaliacao) {this.avaliacao = avaliacao;}
 }

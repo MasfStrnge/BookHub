@@ -58,7 +58,7 @@ public class UsuarioDAO {
                     usuario.setId_usuario(idUsuario);
 
                     PerfilDAO perfilDAO = new PerfilDAO();
-                    boolean perfilValido = perfilDAO.criarPerfil(perfil, usuario,lista);
+                    boolean perfilValido = perfilDAO.criarPerfil(perfil, usuario);
 
                     if (perfilValido) {
                         System.out.println("Perfil criado com sucesso");

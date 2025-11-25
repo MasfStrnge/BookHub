@@ -1,8 +1,6 @@
 package com.example.bookhub.dao;
 
-import com.example.bookhub.models.Lista;
-import com.example.bookhub.models.Livro;
-import com.example.bookhub.models.Perfil;
+import com.example.bookhub.models.*;
 import com.example.bookhub.utils.ConexaoDB;
 
 import java.sql.Connection;
@@ -44,38 +42,62 @@ public class ListaDAO {
 
         return listas;
     }
-    public boolean adicionarLivroLista(Lista lista, Livro livro) {
+    public boolean adicionarLivroLista(Lista lista, Livro livro, StatusDoLivro status, Avaliacao avaliacao) {
+        String sqlCheck = "SELECT COUNT(*) FROM lista_livro WHERE id_lista = ? AND id_livro = ?";
+        String sqlInsert = "INSERT INTO lista_livro (id_lista, id_livro, data_adicionado, status, avaliacao) VALUES (?,?,?,?,?)";
+        String sqlUpdateQt = "UPDATE lista SET qt_livro = qt_livro + 1 WHERE id_lista = ?";
 
-        String sql = "INSERT INTO lista_livro (id_lista,id_livro,data_adicionado) VALUES (?,?,?)";
+        try (Connection conexaoDB = ConexaoDB.getConnection();
+             PreparedStatement stmtCheck = conexaoDB.prepareStatement(sqlCheck);
+             PreparedStatement stmtInsert = conexaoDB.prepareStatement(sqlInsert);
+             PreparedStatement stmtUpdateQt = conexaoDB.prepareStatement(sqlUpdateQt)) {
 
-        try(Connection conexaoDB = ConexaoDB.getConnection();
-            PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
+            // Verifica duplicidade
+            stmtCheck.setInt(1, lista.getId_lista());
+            stmtCheck.setInt(2, livro.getId_livro());
+            ResultSet rs = stmtCheck.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                return false; // já existe
+            }
 
-            stmt.setInt(1, lista.getId_lista());
-            stmt.setInt(2, livro.getId_livro());
-            stmt.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            // Atualiza objeto em memória
+            livro.setStatus(status != null ? status : StatusDoLivro.INDEFINIDO);
+            livro.setAvaliacao(avaliacao);
 
-            int resultado = stmt.executeUpdate();
+            // Prepara INSERT
+            stmtInsert.setInt(1, lista.getId_lista());
+            stmtInsert.setInt(2, livro.getId_livro());
+            stmtInsert.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            stmtInsert.setString(4, livro.getStatus().name());
+            stmtInsert.setInt(5, avaliacao != null ? avaliacao.getEstrelas() : 0);
 
-            return resultado > 0;
+            int resultado = stmtInsert.executeUpdate();
 
+            if (resultado > 0) {
+                stmtUpdateQt.setInt(1, lista.getId_lista());
+                stmtUpdateQt.executeUpdate();
+
+                lista.setQt_livro(lista.getQt_livro() + 1);
+                return true;
+            }
+
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-    public boolean retirarLivroLista(Lista lista, Livro livro) {
 
-        String sql = "DELETE FROM lista_livro WHERE id_lista = ? AND id_livro = ?";
+    public boolean retirarLivroLista(Lista lista, Livro livro) {
+        String sql = "UPDATE lista_livro SET status = 'INDEFINIDO' WHERE id_lista = ? AND id_livro = ?";
 
         try (Connection conexaoDB = ConexaoDB.getConnection();
              PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
 
-            stmt.setInt(1,lista.getId_lista());
-            stmt.setInt(2,livro.getId_livro());
+            stmt.setInt(1, lista.getId_lista());
+            stmt.setInt(2, livro.getId_livro());
 
             int resultado = stmt.executeUpdate();
-
             return resultado > 0;
 
         } catch (SQLException e) {
@@ -172,7 +194,6 @@ public class ListaDAO {
         }
         return null;
     }
-
 
 }
 
