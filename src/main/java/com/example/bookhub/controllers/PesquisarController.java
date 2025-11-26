@@ -132,17 +132,13 @@ public class PesquisarController {
                                     listaEscolhida.getData_criacao()
                             );
 
-                            ListaLidos listaLidos = ListaLidos.obterListaLidos(usuarioLogado);
-
-                            listaFavoritos.adicionarFavorito(livro, avaliacao, listaLidos);
+                            listaFavoritos.adicionarFavorito(livro, avaliacao);
 
                             listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
 
-                            listaDAO.adicionarLivroLista(listaLidos, livro, StatusDoLivro.LIDO, avaliacao);
-
                             Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
                             confirmacao.setTitle("Confirmação");
-                            confirmacao.setHeaderText("Livro adicionado com sucesso aos Favoritos e também em Lidos");
+                            confirmacao.setHeaderText("Livro adicionado com sucesso aos Favoritos");
                             confirmacao.showAndWait();
                         } catch (IllegalArgumentException e) {
                             Alert erro = new Alert(Alert.AlertType.ERROR);

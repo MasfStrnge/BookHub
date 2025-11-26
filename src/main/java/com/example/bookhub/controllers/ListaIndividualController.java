@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -164,25 +166,38 @@ public class ListaIndividualController {
             e.printStackTrace();
         }
     }
-    public void deletarLivro(Lista lista,Livro livro) {
-        ListaDAO listaDAO = new ListaDAO();
-        boolean deletacaoValida = listaDAO.retirarLivroLista(lista,livro);
+    public void deletarLivro(Lista lista, Livro livro) {
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmação de Exclusão");
+        confirmacao.setHeaderText("Deseja realmente excluir o livro \"" + livro.getTitulo() + "\" da lista?");
+        confirmacao.setContentText("Essa ação não poderá ser desfeita.");
 
-        if(deletacaoValida) {
-            Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacaoCriacaoLista.setTitle("Confirmação");
-            confirmacaoCriacaoLista.setHeaderText("LISTA EXCLUIDA COM SUCESSO");
-            confirmacaoCriacaoLista.showAndWait();
-            carregarLivros(lista);
+        ButtonType botaoSim = new ButtonType("Sim", ButtonBar.ButtonData.YES);
+        ButtonType botaoNao = new ButtonType("Não", ButtonBar.ButtonData.NO);
+        confirmacao.getButtonTypes().setAll(botaoSim, botaoNao);
 
-        } else {
-            Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.ERROR);
-            confirmacaoCriacaoLista.setTitle("ERRO");
-            confirmacaoCriacaoLista.setHeaderText("ERRO EM EXCLUIR LISTA" + lista.getNome_lista());
-            confirmacaoCriacaoLista.showAndWait();
-            carregarLivros(lista);
-        }
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == botaoSim) {
+                ListaDAO listaDAO = new ListaDAO();
+                boolean deletacaoValida = listaDAO.retirarLivroLista(lista, livro);
+
+                if (deletacaoValida) {
+                    Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
+                    sucesso.setTitle("Sucesso");
+                    sucesso.setHeaderText("Livro excluído com sucesso!");
+                    sucesso.showAndWait();
+                    carregarLivros(lista);
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Erro ao excluir livro da lista " + lista.getNome_lista());
+                    erro.showAndWait();
+                    carregarLivros(lista);
+                }
+            }
+        });
     }
+
 
 
 }

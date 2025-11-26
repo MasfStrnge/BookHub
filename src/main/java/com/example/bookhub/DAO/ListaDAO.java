@@ -86,18 +86,26 @@ public class ListaDAO {
     }
 
     public boolean retirarLivroLista(Lista lista, Livro livro) {
-        String sql = "DELETE FROM lista_livro WHERE id_lista = ? AND id_livro = ?";
+        String sqlDelete = "DELETE FROM lista_livro WHERE id_lista = ? AND id_livro = ?";
+        String sqlUpdateQt = "UPDATE lista SET qt_livro = qt_livro - 1 WHERE id_lista = ?";
 
         try (Connection conexaoDB = ConexaoDB.getConnection();
-             PreparedStatement stmt = conexaoDB.prepareStatement(sql)) {
+             PreparedStatement stmtDelete = conexaoDB.prepareStatement(sqlDelete);
+             PreparedStatement stmtUpdateQt = conexaoDB.prepareStatement(sqlUpdateQt)) {
 
-            stmt.setInt(1, lista.getId_lista());
-            stmt.setInt(2, livro.getId_livro());
+            stmtDelete.setInt(1, lista.getId_lista());
+            stmtDelete.setInt(2, livro.getId_livro());
 
-            int resultado = stmt.executeUpdate();
+            int resultado = stmtDelete.executeUpdate();
 
             if (resultado > 0) {
+                // Atualiza no banco
+                stmtUpdateQt.setInt(1, lista.getId_lista());
+                stmtUpdateQt.executeUpdate();
+
+                // Atualiza no objeto em memória
                 lista.setQt_livro(lista.getQt_livro() - 1);
+
                 return true;
             }
             return false;

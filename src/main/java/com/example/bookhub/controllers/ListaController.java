@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -140,6 +141,21 @@ public class ListaController {
 
             ListaDAO listaDAO = new ListaDAO();
 
+            List<String> nomesProibidos = Arrays.asList(
+                    "Favoritos", "Lidos", "Lendo", "Quero Ler"
+            );
+
+            boolean nomeProibido = nomesProibidos.stream()
+                    .anyMatch(n -> n.equalsIgnoreCase(nomeNovaLista));
+
+            if (nomeProibido) {
+                Alert alertaProibido = new Alert(Alert.AlertType.WARNING);
+                alertaProibido.setTitle("Aviso");
+                alertaProibido.setHeaderText("Esse nome não pode ser usado para criar listas!");
+                alertaProibido.showAndWait();
+                return;
+            }
+
             List<Lista> listasExistentes = listaDAO.buscarListasPorPerfil(perfil.getId_perfil());
             boolean nomeDuplicado = listasExistentes.stream()
                     .anyMatch(l -> l.getNome_lista().equalsIgnoreCase(nomeNovaLista));
@@ -157,14 +173,11 @@ public class ListaController {
 
             boolean criacaoValida = listaDAO.criarLista(novaLista, perfil);
 
-            System.out.println("Método criarLista() foi chamado!");
-
             if (criacaoValida) {
-                Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmacaoCriacaoLista.setTitle("Confirmação");
-                confirmacaoCriacaoLista.setHeaderText("LISTA CRIADA COM SUCESSO");
-                confirmacaoCriacaoLista.showAndWait();
-
+                Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
+                sucesso.setTitle("Sucesso");
+                sucesso.setHeaderText("Lista criada com sucesso!");
+                sucesso.showAndWait();
                 carregarListas();
             }
 
@@ -209,24 +222,37 @@ public class ListaController {
 
    }
    public void deletarLista(Lista lista) {
-        ListaDAO listaDAO = new ListaDAO();
-        boolean deletacaoValida = listaDAO.deletarLista(lista);
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmação de Exclusão");
+        confirmacao.setHeaderText("Deseja realmente excluir a lista \"" + lista.getNome_lista() + "\"?");
+        confirmacao.setContentText("Essa ação não poderá ser desfeita.");
 
-        if(deletacaoValida) {
-            Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacaoCriacaoLista.setTitle("Confirmação");
-            confirmacaoCriacaoLista.setHeaderText("LISTA EXCLUIDA COM SUCESSO");
-            confirmacaoCriacaoLista.showAndWait();
-            carregarListas();
+        ButtonType botaoSim = new ButtonType("Sim", ButtonBar.ButtonData.YES);
+        ButtonType botaoNao = new ButtonType("Não", ButtonBar.ButtonData.NO);
+        confirmacao.getButtonTypes().setAll(botaoSim, botaoNao);
 
-        } else {
-            Alert confirmacaoCriacaoLista = new Alert(Alert.AlertType.ERROR);
-            confirmacaoCriacaoLista.setTitle("ERRO");
-            confirmacaoCriacaoLista.setHeaderText("ERRO EM EXCLUIR LISTA" + lista.getNome_lista());
-            confirmacaoCriacaoLista.showAndWait();
-            carregarListas();
-        }
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == botaoSim) {
+                ListaDAO listaDAO = new ListaDAO();
+                boolean deletacaoValida = listaDAO.deletarLista(lista);
+
+                if (deletacaoValida) {
+                    Alert sucesso = new Alert(Alert.AlertType.INFORMATION);
+                    sucesso.setTitle("Sucesso");
+                    sucesso.setHeaderText("Lista excluída com sucesso!");
+                    sucesso.showAndWait();
+                    carregarListas();
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Erro ao excluir lista " + lista.getNome_lista());
+                    erro.showAndWait();
+                    carregarListas();
+                }
+            }
+        });
     }
+
 
 
 

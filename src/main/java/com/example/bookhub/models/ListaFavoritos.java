@@ -12,7 +12,7 @@ public class ListaFavoritos extends Lista {
         this.avaliacaoPorLivro = new HashMap<>();
     }
 
-    public void adicionarFavorito(Livro livro, Avaliacao avaliacao, ListaLidos listaLidos) {
+    public void adicionarFavorito(Livro livro, Avaliacao avaliacao) {
         if (avaliacao == null || avaliacao.getEstrelas() <= 0) {
             throw new IllegalArgumentException("Livro deve ser avaliado antes de ser favorito.");
         }
@@ -22,7 +22,6 @@ public class ListaFavoritos extends Lista {
         avaliacaoPorLivro.put(livro, avaliacao);
         setQt_livro(getLivros().size());
 
-        listaLidos.adicionarLido(livro, avaliacao);
 
     }
 

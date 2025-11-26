@@ -136,7 +136,7 @@ public class InfoLivroController {
 
                             ListaLidos listaLidos = ListaLidos.obterListaLidos(usuarioLogado);
 
-                            listaFavoritos.adicionarFavorito(livro, avaliacao, listaLidos);
+                            listaFavoritos.adicionarFavorito(livro, avaliacao);
 
                             listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
 
