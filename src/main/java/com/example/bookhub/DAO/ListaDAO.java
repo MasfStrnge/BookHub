@@ -97,7 +97,6 @@ public class ListaDAO {
             int resultado = stmt.executeUpdate();
 
             if (resultado > 0) {
-                // Atualiza a quantidade de livros na lista em memória
                 lista.setQt_livro(lista.getQt_livro() - 1);
                 return true;
             }
@@ -208,5 +207,6 @@ public class ListaDAO {
         }
         return null;
     }
+
 }
 

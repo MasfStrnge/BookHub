@@ -100,6 +100,20 @@ public class PesquisarController {
                     .orElse(null);
 
             if (listaEscolhida != null) {
+                LivroDAO livroDAO = new LivroDAO();
+
+                List<Livro> LivrosExistentesNaLista = livroDAO.buscarLivrosPorLista(listaEscolhida.getId_lista(),listaEscolhida.getNome_lista());
+                boolean LivroDuplicado = LivrosExistentesNaLista.stream()
+                        .anyMatch(l -> l.getTitulo().equalsIgnoreCase(livro.getTitulo()));
+
+                if (LivroDuplicado) {
+                    Alert alertaDuplicado = new Alert(Alert.AlertType.WARNING);
+                    alertaDuplicado.setTitle("Aviso - Livro já existente");
+                    alertaDuplicado.setHeaderText("Este livro já está na lista " + nomeListaEscolhida + "!");
+                    alertaDuplicado.showAndWait();
+                    return;
+                }
+
                 StatusDoLivro status;
                 Avaliacao avaliacao = null;
 
