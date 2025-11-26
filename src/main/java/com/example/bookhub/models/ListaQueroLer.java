@@ -13,4 +13,16 @@ public class ListaQueroLer extends Lista {
         getLivros().add(livro);
         setQt_livro(getLivros().size());
     }
+
+    @Override
+    public String toString() {
+        return "ListaQueroLer{" +
+                "id_perfil=" + getId_perfil() +
+                ", nome_lista='" + getNome_lista() + '\'' +
+                ", qt_livro=" + getQt_livro() +
+                ", data_criacao=" + getData_criacao() +
+                ", livros=" + getLivros() +
+                '}';
+    }
+
 }

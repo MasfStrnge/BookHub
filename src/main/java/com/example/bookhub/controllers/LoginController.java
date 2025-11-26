@@ -1,13 +1,13 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.dao.PerfilDAO;
-import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.DAO.PerfilDAO;
+import com.example.bookhub.DAO.UsuarioDAO;
 import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Sessao;
 import com.example.bookhub.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -23,13 +23,12 @@ public class LoginController {
     @FXML private StackPane rootPane;
     @FXML private TextField CampoNomeDeUsuario;
     @FXML private PasswordField CampoDeSenha;
-    @FXML private Label  LabelErro;
 
     @FXML
     public void entrar() {
         System.out.println("Método entrar() foi chamado!");
 
-        String nomeUsuario = this.CampoNomeDeUsuario.getText().trim(); // Guarda string digitada
+        String nomeUsuario = this.CampoNomeDeUsuario.getText().trim();
         String senha = this.CampoDeSenha.getText().trim();
 
         Usuario usuario = new Usuario();
@@ -58,7 +57,11 @@ public class LoginController {
             }
 
         } else {
-            LabelErro.setText("Usuário ou senha inválidos!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Atenção");
+            alert.setHeaderText("FALHA NO LOGIN");
+            alert.setContentText("Senha ou Usuario invalidos");
+            alert.showAndWait();
         }
     }
 

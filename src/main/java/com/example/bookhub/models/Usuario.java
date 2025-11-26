@@ -41,4 +41,17 @@ public class Usuario {
 
     public Perfil getPerfil() {return perfil;}
     public void setPerfil(Perfil perfil) {this.perfil = perfil;}
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id_usuario=" + id_usuario +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", nomeUsuario='" + nomeUsuario + '\'' +
+                ", email='" + email + '\'' +
+                ", perfil=" + (perfil != null ? perfil.toString() : "null") +
+                '}';
+    }
+
 }

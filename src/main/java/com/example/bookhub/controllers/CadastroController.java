@@ -1,7 +1,7 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.dao.ListaDAO;
-import com.example.bookhub.dao.UsuarioDAO;
+import com.example.bookhub.DAO.ListaDAO;
+import com.example.bookhub.DAO.UsuarioDAO;
 import com.example.bookhub.models.Lista;
 import com.example.bookhub.models.Perfil;
 import com.example.bookhub.models.Usuario;

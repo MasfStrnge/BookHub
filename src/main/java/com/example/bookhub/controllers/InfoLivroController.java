@@ -1,10 +1,10 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.dao.ListaDAO;
+import com.example.bookhub.DAO.ListaDAO;
 import com.example.bookhub.models.*;
 import com.example.bookhub.utils.AvaliacaoUI;
+import com.example.bookhub.utils.NavegacaoTelas;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -12,13 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 public class InfoLivroController {
 
@@ -29,72 +27,17 @@ public class InfoLivroController {
     @FXML private TextArea textoDescricao;
     private Livro livro;
 
-    public void botaoPesquisar(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/pesquisar-view.fxml"));
-            BorderPane telaPesquisar = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            PesquisarController pesquisarControllerController = loader.getController();
-
-            stage.getScene().setRoot(telaPesquisar);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoPesquisar(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/pesquisar-view.fxml");
     }
-    public void botaoPerfil(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
-            BorderPane telaPesquisar = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            PerfilController perfilController = loader.getController();
-
-            stage.getScene().setRoot(telaPesquisar);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoPerfil(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/perfil-view.fxml");
     }
-    public void botaoLogout(MouseEvent mouseEvent) {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Confirmação de Logout");
-        alerta.setHeaderText("Tem certeza que deseja sair?");
-        alerta.setContentText("Você será desconectada da sua sessão atual.");
-
-        Optional<ButtonType> resultado = alerta.showAndWait();
-
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            Sessao.limpar();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
-                Pane telaLogin = loader.load();
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                LoginController loginController = loader.getController();
-                stage.getScene().setRoot(telaLogin);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    @FXML private void botaoLogout(MouseEvent mouseEvent) {
+        NavegacaoTelas.logout(rootPane, "/com/example/bookhub/views/login-view.fxml");
     }
-    public void botaoListas(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listas-view.fxml"));
-            BorderPane telaLista = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            ListaController listaController = loader.getController();
-
-            stage.getScene().setRoot(telaLista);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoListas(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/listas-view.fxml");
     }
 
     public void setLivro(Livro livro) {
@@ -198,7 +141,6 @@ public class InfoLivroController {
     @FXML private void initialize() {
         Usuario usuarioLogado = Sessao.getUsuario();
     }
-
 
     public void adicionarLivroLista(MouseEvent mouseEvent) {
         adicionarLivroLista(livro);

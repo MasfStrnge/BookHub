@@ -51,4 +51,20 @@ public class Perfil {
     public ListaLidos getListaLidos() { return listaLidos; }
     public ListaQueroLer getListaQueroLer() { return listaQueroLer; }
     public List<ListaPersonalizada> getListasPersonalizadas() { return listasPersonalizadas; }
+
+    @Override
+    public String toString() {
+        return "Perfil{" +
+                "id_perfil=" + id_perfil +
+                ", id_usuario=" + id_usuario +
+                ", fotoPerfil='" + fotoPerfil + '\'' +
+                ", imagem_fundo='" + imagem_fundo + '\'' +
+                ", listaFavoritos=" + listaFavoritos +
+                ", listaLendo=" + listaLendo +
+                ", listaLidos=" + listaLidos +
+                ", listaQueroLer=" + listaQueroLer +
+                ", listasPersonalizadas=" + listasPersonalizadas +
+                '}';
+    }
+
 }

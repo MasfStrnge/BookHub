@@ -1,9 +1,10 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.dao.ListaDAO;
-import com.example.bookhub.dao.LivroDAO;
+import com.example.bookhub.DAO.ListaDAO;
+import com.example.bookhub.DAO.LivroDAO;
 import com.example.bookhub.models.*;
 import com.example.bookhub.utils.AvaliacaoUI;
+import com.example.bookhub.utils.NavegacaoTelas;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -37,57 +38,14 @@ public class PesquisarController {
         Usuario usuarioLogado = Sessao.getUsuario();
     }
 
-    public void botaoPerfil(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/perfil-view.fxml"));
-            BorderPane telaPesquisar = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            PerfilController perfilController = loader.getController();
-
-            stage.getScene().setRoot(telaPesquisar);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoPerfil(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/perfil-view.fxml");
     }
-    public void botaoLogout(MouseEvent mouseEvent) {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Confirmação de Logout");
-        alerta.setHeaderText("Tem certeza que deseja sair?");
-        alerta.setContentText("Você será desconectada da sua sessão atual.");
-
-        Optional<ButtonType> resultado = alerta.showAndWait();
-
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            Sessao.limpar();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
-                Pane telaLogin = loader.load();
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                LoginController loginController = loader.getController();
-                stage.getScene().setRoot(telaLogin);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    @FXML private void botaoLogout(MouseEvent mouseEvent) {
+        NavegacaoTelas.logout(rootPane, "/com/example/bookhub/views/login-view.fxml");
     }
-    public void botaoListas(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listas-view.fxml"));
-            BorderPane telaLista = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            ListaController listaController = loader.getController();
-
-            stage.getScene().setRoot(telaLista);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoListas(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/listas-view.fxml");
     }
 
     public void consultarInfoLivro(Livro livro) {
@@ -143,14 +101,13 @@ public class PesquisarController {
 
             if (listaEscolhida != null) {
                 StatusDoLivro status;
-                Avaliacao avaliacao = null; // agora usa o model Avaliacao
+                Avaliacao avaliacao = null;
 
                 switch (nomeListaEscolhida) {
                     case "Favoritos":
                         status = StatusDoLivro.FAVORITO;
 
                         try {
-                            // usa AvaliacaoUI para obter avaliação visual
                             avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
 
                             ListaFavoritos listaFavoritos = new ListaFavoritos(
@@ -159,11 +116,14 @@ public class PesquisarController {
                                     listaEscolhida.getQt_livro(),
                                     listaEscolhida.getData_criacao()
                             );
+
                             ListaLidos listaLidos = ListaLidos.obterListaLidos(usuarioLogado);
 
                             listaFavoritos.adicionarFavorito(livro, avaliacao, listaLidos);
 
                             listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
+
+                            listaDAO.adicionarLivroLista(listaLidos, livro, StatusDoLivro.LIDO, avaliacao);
 
                             Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
                             confirmacao.setTitle("Confirmação");
@@ -178,6 +138,14 @@ public class PesquisarController {
                         return;
 
                     case "Quero Ler":
+                        ListaQueroLer listaQueroLer = new ListaQueroLer(
+                                listaEscolhida.getId_perfil(),
+                                listaEscolhida.getNome_lista(),
+                                listaEscolhida.getQt_livro(),
+                                listaEscolhida.getData_criacao()
+                        );
+
+                        listaQueroLer.adicionarQueroLer(livro);
                         status = StatusDoLivro.QUERO_LER;
                         break;
 
@@ -187,11 +155,11 @@ public class PesquisarController {
 
                     case "Lidos":
                         status = StatusDoLivro.LIDO;
-                        // aqui também usa AvaliacaoUI
+
                         try {
                             avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
                         } catch (IllegalArgumentException e) {
-                            // se usuário cancelar, pode deixar null
+
                             avaliacao = null;
                         }
                         break;

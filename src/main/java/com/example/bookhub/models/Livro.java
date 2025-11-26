@@ -72,4 +72,21 @@ public class Livro {
 
     public Avaliacao getAvaliacao() {return avaliacao;}
     public void setAvaliacao(Avaliacao avaliacao) {this.avaliacao = avaliacao;}
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id_livro=" + id_livro +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", ano_publicacao=" + ano_publicacao +
+                ", isbn='" + isbn + '\'' +
+                ", genero='" + genero + '\'' +
+                ", qt_pagina=" + qt_pagina +
+                ", idioma='" + idioma + '\'' +
+                ", status=" + status +
+                ", avaliacao=" + (avaliacao != null ? avaliacao.toString() : "null") +
+                '}';
+    }
+
 }

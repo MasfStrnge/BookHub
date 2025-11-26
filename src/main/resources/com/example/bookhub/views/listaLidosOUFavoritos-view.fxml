@@ -35,12 +35,17 @@
                         <Font name="Alexandria Regular" size="22.0" />
                      </font>
                   </Label>
-                  <Label layoutX="544.0" layoutY="6.0" text="Autor" textFill="WHITE">
+                  <Label layoutX="455.0" layoutY="4.0" text="Autor" textFill="WHITE">
                      <font>
                         <Font name="Alexandria Regular" size="22.0" />
                      </font>
                   </Label>
-                  <Label layoutX="1022.0" layoutY="6.0" text="Adicionado em" textFill="WHITE">
+                  <Label layoutX="696.0" layoutY="4.0" text="Adicionado em" textFill="WHITE">
+                     <font>
+                        <Font name="Alexandria Regular" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="976.0" layoutY="4.0" text="Avaliacao" textFill="WHITE">
                      <font>
                         <Font name="Alexandria Regular" size="22.0" />
                      </font>

@@ -14,4 +14,12 @@ public class Sessao {
     public static void limpar() {
         usuario = null;
     }
+
+    @Override
+    public String toString() {
+        return "Sessao{" +
+                "usuario=" + (usuario != null ? usuario.toString() : "null") +
+                '}';
+    }
+
 }

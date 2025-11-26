@@ -1,21 +1,16 @@
 package com.example.bookhub.controllers;
 
-import com.example.bookhub.dao.ListaDAO;
-import com.example.bookhub.dao.LivroDAO;
-import com.example.bookhub.dao.PerfilDAO;
-import com.example.bookhub.models.Lista;
-import com.example.bookhub.models.Livro;
-import com.example.bookhub.models.Sessao;
-import com.example.bookhub.models.Usuario;
-import javafx.animation.FadeTransition;
+import com.example.bookhub.DAO.ListaDAO;
+import com.example.bookhub.DAO.LivroDAO;
+import com.example.bookhub.DAO.PerfilDAO;
+import com.example.bookhub.models.*;
+import com.example.bookhub.utils.AvaliacaoUI;
+import com.example.bookhub.utils.NavegacaoTelas;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.BlurType;
@@ -28,9 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -39,7 +32,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class PerfilController {
     @FXML private BorderPane rootPane;
@@ -47,57 +39,17 @@ public class PerfilController {
     @FXML private ImageView imagemFundo, imagemPerfil;
     @FXML private HBox conteinerFavoritos;
     @FXML private Label labelNomeDeUsuario;
-    private Lista listaFavoritos;
+    private ListaFavoritos listaFavoritos;
     private Usuario usuarioLogado;
 
-    public void botaoPesquisar(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/pesquisar-view.fxml"));
-            BorderPane telaPesquisar = loader.load();
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            PesquisarController pesquisarController = loader.getController();
-            stage.getScene().setRoot(telaPesquisar);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoPesquisar(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/pesquisar-view.fxml");
     }
-    public void botaoListas(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/listas-view.fxml"));
-            BorderPane telaLista = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-
-            ListaController listaController = loader.getController();
-
-            stage.getScene().setRoot(telaLista);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML private void botaoListas(MouseEvent mouseEvent) {
+        NavegacaoTelas.trocarTelaBorder(rootPane, "/com/example/bookhub/views/listas-view.fxml");
     }
-    public void botaoLogout(MouseEvent mouseEvent) {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Confirmação de Logout");
-        alerta.setHeaderText("Tem certeza que deseja sair?");
-        alerta.setContentText("Você será desconectada da sua sessão atual.");
-
-        Optional<ButtonType> resultado = alerta.showAndWait();
-
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            Sessao.limpar();
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bookhub/views/login-view.fxml"));
-                Pane telaLogin = loader.load();
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                LoginController loginController = loader.getController();
-                stage.getScene().setRoot(telaLogin);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    @FXML private void botaoLogout(MouseEvent mouseEvent) {
+        NavegacaoTelas.logout(rootPane, "/com/example/bookhub/views/login-view.fxml");
     }
 
     @FXML private void initialize () {
@@ -109,8 +61,7 @@ public class PerfilController {
             atualizarPerfil();
 
         }
-
-        private void atualizarPerfil () {
+    private void atualizarPerfil () {
             labelNomeDeUsuario.setText(usuarioLogado.getNomeUsuario());
             Tooltip trocarFotoPerfil = new Tooltip("Clique para trocar sua foto de perfil!");
             trocarFotoPerfil.install(imagemPerfil, trocarFotoPerfil);
@@ -162,60 +113,74 @@ public class PerfilController {
             carregarLivrosFavoritos(listaFavoritos);
 
         }
-        public void carregarLivrosFavoritos (Lista lista){
 
-            Usuario usuarioLogado = Sessao.getUsuario();
+    public void carregarLivrosFavoritos(ListaFavoritos listaFavoritos) {
 
-            conteinerFavoritos.getChildren().clear();
+        Usuario usuarioLogado = Sessao.getUsuario();
 
-            LivroDAO livroDAO = new LivroDAO();
-            List<Livro> livros = livroDAO.buscarLivrosPorLista(lista.getId_lista());
+        conteinerFavoritos.getChildren().clear();
 
-            if (livros.isEmpty()) {
-                Label vazioLabel = new Label("Sua lista de livros favoritos está vazia, adicione para exibirmos.");
-                vazioLabel.setFont(Font.font("Alexandria", 24));
-                vazioLabel.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.56);");
-                vazioLabel.setAlignment(Pos.CENTER);
-                HBox.setMargin(vazioLabel, new Insets(0, 0, 0, 500));
+        LivroDAO livroDAO = new LivroDAO();
+        List<Livro> livros = livroDAO.buscarLivrosPorLista(listaFavoritos.getId_lista(), listaFavoritos.getNome_lista());
 
-                conteinerFavoritos.setAlignment(Pos.CENTER);
-                conteinerFavoritos.getChildren().add(vazioLabel);
-                return;
-            }
+        if (livros.isEmpty()) {
+            Label vazioLabel = new Label("Sua lista de livros favoritos está vazia, adicione para exibirmos.");
+            vazioLabel.setFont(Font.font("Alexandria", 24));
+            vazioLabel.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.56);");
+            vazioLabel.setAlignment(Pos.CENTER);
+            HBox.setMargin(vazioLabel, new Insets(0, 0, 0, 500));
 
-            for (Livro livro : livros) {
-
-                Pane conteinerCapaLivro = new Pane();
-                conteinerCapaLivro.setPrefHeight(344);
-                conteinerCapaLivro.setPrefWidth(239);
-                conteinerCapaLivro.getStyleClass().add("conteinerCapaLivro");
-
-                ImageView capa = new ImageView();
-                capa.setPreserveRatio(false);
-                capa.fitWidthProperty().bind(conteinerCapaLivro.widthProperty());
-                capa.fitHeightProperty().bind(conteinerCapaLivro.heightProperty());
-                capa.setImage(new Image(getClass().getResource("/com/example/bookhub/" + livro.getCapa()).toExternalForm()));
-
-                Rectangle clip = new Rectangle();
-                clip.widthProperty().bind(capa.fitWidthProperty());
-                clip.heightProperty().bind(capa.fitHeightProperty());
-                clip.setArcWidth(30);
-                clip.setArcHeight(30);
-                capa.setClip(clip);
-
-                DropShadow sombra = new DropShadow();
-                sombra.setColor(Color.color(0, 0, 0, 0.3));
-                conteinerCapaLivro.setEffect(sombra);
-                sombra.setOffsetX(0);
-                sombra.setOffsetY(4);
-                sombra.setBlurType(BlurType.ONE_PASS_BOX);
-
-                conteinerCapaLivro.getChildren().add(capa);
-                conteinerFavoritos.getChildren().add(conteinerCapaLivro);
-            }
+            conteinerFavoritos.setAlignment(Pos.CENTER);
+            conteinerFavoritos.getChildren().add(vazioLabel);
+            return;
         }
 
-        @FXML private void trocarImagemFundo (MouseEvent mouseEvent){
+        for (Livro livro : livros) {
+            listaFavoritos.adicionarLivro(livro);
+
+            VBox capaAvaliacao = new VBox(18);
+            capaAvaliacao.setPrefHeight(394);
+            capaAvaliacao.setPrefWidth(239);
+            capaAvaliacao.getStyleClass().add("conteinerCapaLivro");
+
+
+            Pane conteinerCapaLivro = new Pane();
+            conteinerCapaLivro.setPrefHeight(344);
+            conteinerCapaLivro.setPrefWidth(239);
+
+
+            ImageView capa = new ImageView();
+            capa.setPreserveRatio(false);
+            capa.fitWidthProperty().bind(conteinerCapaLivro.widthProperty());
+            capa.fitHeightProperty().bind(conteinerCapaLivro.heightProperty());
+            capa.setImage(new Image(getClass().getResource("/com/example/bookhub/" + livro.getCapa()).toExternalForm()));
+
+            Rectangle clip = new Rectangle();
+            clip.widthProperty().bind(capa.fitWidthProperty());
+            clip.heightProperty().bind(capa.fitHeightProperty());
+            clip.setArcWidth(30);
+            clip.setArcHeight(30);
+            capa.setClip(clip);
+
+            DropShadow sombra = new DropShadow();
+            sombra.setColor(Color.color(0, 0, 0, 0.3));
+            conteinerCapaLivro.setEffect(sombra);
+            sombra.setOffsetX(0);
+            sombra.setOffsetY(4);
+            sombra.setBlurType(BlurType.ONE_PASS_BOX);
+
+            conteinerCapaLivro.getChildren().add(capa);
+
+            Avaliacao avaliacao = listaFavoritos.getAvaliacao(livro);
+
+            HBox estrelasBox = AvaliacaoUI.mostrarAvaliacaoEstrelas(avaliacao);
+
+            capaAvaliacao.getChildren().addAll(conteinerCapaLivro, estrelasBox);
+            conteinerFavoritos.getChildren().add(capaAvaliacao);
+        }
+    }
+
+    @FXML private void trocarImagemFundo (MouseEvent mouseEvent){
             Usuario usuarioLogado = Sessao.getUsuario();
             FileChooser escolherImagem = new FileChooser();
             escolherImagem.setTitle("Selecione uma Imagem");
@@ -237,7 +202,7 @@ public class PerfilController {
                 atualizarPerfil();
             }
         }
-        @FXML private void trocarImagemPerfil (MouseEvent mouseEvent){
+    @FXML private void trocarImagemPerfil (MouseEvent mouseEvent){
             Usuario usuarioLogado = Sessao.getUsuario();
             FileChooser escolherImagem = new FileChooser();
             escolherImagem.setTitle("Selecione uma Imagem");

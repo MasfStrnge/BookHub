@@ -80,7 +80,6 @@
 }
 
 .conteinerCapaLivro {
-    -fx-border-color: #000000;
     -fx-cursor: hand;
     -fx-opacity: 1;
     -fx-transition: all 0.4s;

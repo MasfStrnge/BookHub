@@ -23,7 +23,20 @@ public class ListaFavoritos extends Lista {
         setQt_livro(getLivros().size());
 
         listaLidos.adicionarLido(livro, avaliacao);
+
     }
+
+    public void adicionarLivro(Livro livro) {
+        getLivros().add(livro);
+
+        if (livro.getAvaliacao() != null) {
+            avaliacaoPorLivro.put(livro, livro.getAvaliacao());
+        }
+
+        setQt_livro(getLivros().size());
+    }
+
+
 
     public Avaliacao getAvaliacao(Livro livro) {return avaliacaoPorLivro.get(livro);}
     public Map<Livro, Avaliacao> getAvaliacoes() {return avaliacaoPorLivro;}
