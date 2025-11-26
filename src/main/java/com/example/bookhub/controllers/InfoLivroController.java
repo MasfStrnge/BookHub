@@ -1,6 +1,7 @@
 package com.example.bookhub.controllers;
 
 import com.example.bookhub.DAO.ListaDAO;
+import com.example.bookhub.DAO.LivroDAO;
 import com.example.bookhub.models.*;
 import com.example.bookhub.utils.AvaliacaoUI;
 import com.example.bookhub.utils.NavegacaoTelas;
@@ -51,7 +52,7 @@ public class InfoLivroController {
         tituloLivro.setText(livro.getTitulo());
         autorLivro.setText(livro.getAutor());
         publicacaoLivro.setText("Publicado em: " + String.valueOf(livro.getPublicacao()));
-        qtPaginasLivro.setText("Paginas: " + String.valueOf(livro.getQt_pagina()));
+        qtPaginasLivro.setText("Páginas " + String.valueOf(livro.getQt_pagina()));
         textoDescricao.setText(livro.getDescricao());
 
         capaLivro.setPreserveRatio(false);
@@ -102,26 +103,89 @@ public class InfoLivroController {
                     .orElse(null);
 
             if (listaEscolhida != null) {
+                LivroDAO livroDAO = new LivroDAO();
+
+                List<Livro> LivrosExistentesNaLista = livroDAO.buscarLivrosPorLista(listaEscolhida.getId_lista(),listaEscolhida.getNome_lista());
+                boolean LivroDuplicado = LivrosExistentesNaLista.stream()
+                        .anyMatch(l -> l.getTitulo().equalsIgnoreCase(livro.getTitulo()));
+
+                if (LivroDuplicado) {
+                    Alert alertaDuplicado = new Alert(Alert.AlertType.WARNING);
+                    alertaDuplicado.setTitle("Aviso - Livro já existente");
+                    alertaDuplicado.setHeaderText("Este livro já está na lista " + nomeListaEscolhida + "!");
+                    alertaDuplicado.showAndWait();
+                    return;
+                }
+
                 StatusDoLivro status;
+                Avaliacao avaliacao = null;
 
                 switch (nomeListaEscolhida) {
                     case "Favoritos":
                         status = StatusDoLivro.FAVORITO;
-                        break;
+
+                        try {
+                            avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
+
+                            ListaFavoritos listaFavoritos = new ListaFavoritos(
+                                    listaEscolhida.getId_perfil(),
+                                    listaEscolhida.getNome_lista(),
+                                    listaEscolhida.getQt_livro(),
+                                    listaEscolhida.getData_criacao()
+                            );
+
+                            ListaLidos listaLidos = ListaLidos.obterListaLidos(usuarioLogado);
+
+                            listaFavoritos.adicionarFavorito(livro, avaliacao, listaLidos);
+
+                            listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
+
+                            listaDAO.adicionarLivroLista(listaLidos, livro, StatusDoLivro.LIDO, avaliacao);
+
+                            Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);
+                            confirmacao.setTitle("Confirmação");
+                            confirmacao.setHeaderText("Livro adicionado com sucesso aos Favoritos e também em Lidos");
+                            confirmacao.showAndWait();
+                        } catch (IllegalArgumentException e) {
+                            Alert erro = new Alert(Alert.AlertType.ERROR);
+                            erro.setTitle("Erro");
+                            erro.setHeaderText(e.getMessage());
+                            erro.showAndWait();
+                        }
+                        return;
+
                     case "Quero Ler":
+                        ListaQueroLer listaQueroLer = new ListaQueroLer(
+                                listaEscolhida.getId_perfil(),
+                                listaEscolhida.getNome_lista(),
+                                listaEscolhida.getQt_livro(),
+                                listaEscolhida.getData_criacao()
+                        );
+
+                        listaQueroLer.adicionarQueroLer(livro);
                         status = StatusDoLivro.QUERO_LER;
                         break;
+
                     case "Lendo":
                         status = StatusDoLivro.LENDO;
                         break;
+
                     case "Lidos":
                         status = StatusDoLivro.LIDO;
+
+                        try {
+                            avaliacao = AvaliacaoUI.obterAvaliacaoDoLivro(livro);
+                        } catch (IllegalArgumentException e) {
+
+                            avaliacao = null;
+                        }
                         break;
+
                     default:
                         status = StatusDoLivro.INDEFINIDO;
                 }
 
-                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro, status, AvaliacaoUI.obterAvaliacaoDoLivro(livro));
+                boolean sucesso = listaDAO.adicionarLivroLista(listaEscolhida, livro, status, avaliacao);
 
                 if (sucesso) {
                     Alert confirmacao = new Alert(Alert.AlertType.INFORMATION);

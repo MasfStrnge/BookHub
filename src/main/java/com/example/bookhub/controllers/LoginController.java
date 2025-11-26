@@ -57,6 +57,9 @@ public class LoginController {
             }
 
         } else {
+            CampoNomeDeUsuario.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+            CampoDeSenha.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Atenção");
             alert.setHeaderText("FALHA NO LOGIN");

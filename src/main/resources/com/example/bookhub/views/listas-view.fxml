@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" stylesheets="@../style/profile-stylesheet.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ListaController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookhub.controllers.ListaController">
     <center>
         <StackPane fx:id="painelPerfil" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" styleClass="MainProfile" stylesheets="@../style/profile-stylesheet.css" BorderPane.alignment="CENTER">
             <children>
@@ -45,7 +46,7 @@
                   <Insets left="44.0" right="44.0" top="950.0" />
                </StackPane.margin>
             </Separator>
-            <ImageView fx:id="botaoCriarLista" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#criarLista" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+            <ImageView fx:id="botaoCriarLista" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#criarLista" pickOnBounds="true" preserveRatio="true" styleClass="botao" StackPane.alignment="TOP_RIGHT">
                <image>
                   <Image url="@../img/plus-large-svgrepo-com.png" />
                </image>
@@ -91,4 +92,8 @@
                 </ImageView>
             </children></Pane>
     </left>
+   <stylesheets>
+      <URL value="@../style/profile-stylesheet.css" />
+      <URL value="@../style/lista-stylesheet.css" />
+   </stylesheets>
 </BorderPane>

@@ -73,7 +73,7 @@
                   <Image url="@../img/arrow-left-svgrepo-com.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="botaoAdicionar" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+            <ImageView fx:id="botaoAdicionar" fitHeight="150.0" fitWidth="40.0" onMouseClicked="#botaoPesquisar" pickOnBounds="true" preserveRatio="true" styleClass="botao" StackPane.alignment="TOP_RIGHT">
                <image>
                   <Image url="@../img/adicionar.png" />
                </image>

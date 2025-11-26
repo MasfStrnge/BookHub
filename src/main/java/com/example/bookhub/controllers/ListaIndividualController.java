@@ -23,6 +23,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javafx.scene.paint.Color;
@@ -104,12 +106,15 @@ public class ListaIndividualController {
             autor.setFont(Font.font("Alexandria", 20));
             autor.getStyleClass().add("Labels");
 
-            Label dataAdicionado = new Label(livro.getDataAdicionado().toString());
+
+            LocalDate data = livro.getDataAdicionado();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd / MM / yyyy");
+
+            Label dataAdicionado = new Label(data.format(formatter));
             StackPane.setAlignment(dataAdicionado, Pos.CENTER_RIGHT);
-            StackPane.setMargin(dataAdicionado, new Insets(0, 800, 0, 0));
+            StackPane.setMargin(dataAdicionado, new Insets(0, 550, 0, 0));
             dataAdicionado.setFont(Font.font("Alexandria", 20));
             dataAdicionado.getStyleClass().add("Labels");
-
             ImageView deletar = new ImageView(new Image(getClass().getResource("/com/example/bookhub/img/deletar.png").toExternalForm()));
             deletar.setFitWidth(42);
             deletar.setFitHeight(42);
@@ -120,8 +125,8 @@ public class ListaIndividualController {
 
             novoPainelLivro.getChildren().addAll(titulo, autor, dataAdicionado,deletar);
 
-            novoPainelLivro.setOnMouseClicked(event -> consultarInfoLivro(livro));
-            deletar.setOnMouseClicked(event -> deletarLivro(lista,livro));
+            novoPainelLivro.setOnMouseClicked(event -> {consultarInfoLivro(livro); event.consume();});
+            deletar.setOnMouseClicked(event -> {deletarLivro(lista,livro); event.consume();});
 
 
             conteinerLivrosDaLista.getChildren().add(novoPainelLivro);

@@ -38,4 +38,16 @@
     -fx-border-radius: 5px;
 }
 
+.botao {
+    -fx-cursor: hand;
+    -fx-opacity: 1;
+    -fx-background-color: rgba(217, 217, 217, 0.7);
+}
+
+.botao:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-opacity: 0.8;
+}
+
 

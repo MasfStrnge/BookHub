@@ -36,6 +36,7 @@ public class PesquisarController {
 
     @FXML private void initialize() {
         Usuario usuarioLogado = Sessao.getUsuario();
+        pesquisarLivro();
     }
 
     @FXML private void botaoPerfil(MouseEvent mouseEvent) {

@@ -7,6 +7,7 @@ import com.example.bookhub.utils.ConexaoDB;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class LivroDAO {
 
                 int ano = rs.getInt("ano_publicacao");
                 if (!rs.wasNull()) {
-                    livro.setPublicacao(LocalDate.of(ano, 1, 1));
+                    livro.setPublicacao(Year.of(ano));
                 }
 
                 livro.setIsbn(rs.getString("isbn"));
@@ -72,37 +73,6 @@ public class LivroDAO {
 
         return livros;
     }
-    public Livro consultarInfoLivro(Livro livro) {
-        String sql = "SELECT capa, titulo, autor, ano_publicacao, isbn, genero, qt_pagina, idioma, descricao " +
-                "FROM livro WHERE id_livro = ?";
-
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, livro.getId_livro());
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-
-                livro.setCapa(rs.getString("capa"));
-                livro.setTitulo(rs.getString("titulo"));
-                livro.setAutor(rs.getString("autor"));
-                livro.setPublicacao(rs.getDate("ano_publicacao").toLocalDate());
-                livro.setIsbn(rs.getString("isbn"));
-                livro.setGenero(rs.getString("genero"));
-                livro.setQt_pagina(rs.getInt("qt_pagina"));
-                livro.setIdioma(rs.getString("idioma"));
-                livro.setDescricao(rs.getString("descricao"));
-                return livro;
-            }
-            return null;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     public List<Livro> exibirLivrosPesquisa(String termo) {
         String sql = "SELECT id_livro, capa, titulo, autor, ano_publicacao, isbn, genero, qt_pagina, idioma, descricao " +
                      "FROM livro " +
@@ -132,7 +102,7 @@ public class LivroDAO {
                 livro.setAutor(rs.getString("autor"));
 
                 int ano = rs.getInt("ano_publicacao");
-                livro.setPublicacao(LocalDate.of(ano, 1, 1));
+                livro.setPublicacao(Year.of(ano));
 
                 livro.setIsbn(rs.getString("isbn"));
                 livro.setGenero(rs.getString("genero"));

@@ -67,22 +67,6 @@
                   <Image url="@../img/BookHubLogo_RED_Alternativo.png" />
                </image>
             </ImageView>
-            <Label fx:id="totalLivrosLidos" alignment="CENTER" contentDisplay="RIGHT" text="Total de livros lidos:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="300.0" top="390.0" />
-               </StackPane.margin>
-            </Label>
-            <Label fx:id="generoFavorito" alignment="CENTER" contentDisplay="RIGHT" layoutX="310.0" layoutY="370.0" text="Genero Favorito:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="300.0" top="360.0" />
-               </StackPane.margin>
-            </Label>
          </children>
          <BorderPane.margin>
             <Insets />

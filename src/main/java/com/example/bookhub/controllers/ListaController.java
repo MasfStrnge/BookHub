@@ -99,11 +99,11 @@ public class ListaController {
 
                 novoPainelLista.getChildren().addAll(renomear, deletar);
 
-                renomear.setOnMouseClicked(event -> renomearLista(lista));
-                deletar.setOnMouseClicked(event -> deletarLista(lista));
+                renomear.setOnMouseClicked(event -> {renomearLista(lista); event.consume();});
+                deletar.setOnMouseClicked(event -> {deletarLista(lista); event.consume();});
             }
 
-            novoPainelLista.setOnMouseClicked(event -> entrarLista(lista));
+            novoPainelLista.setOnMouseClicked(event -> {entrarLista(lista); event.consume();});
             conteinerListas.getChildren().add(novoPainelLista);
         }
     }

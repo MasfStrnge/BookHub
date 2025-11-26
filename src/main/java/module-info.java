@@ -9,6 +9,7 @@ module com.example.bookhub {
     requires org.kordamp.ikonli.javafx;
     requires org.mariadb.jdbc;
 
+
     opens com.example.bookhub to javafx.fxml;
     exports com.example.bookhub;
 

@@ -10,17 +10,17 @@
    <children>
               <Pane fx:id="registerPane" layoutX="412.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" styleClass="RegisterPane" stylesheets="@../style/register-stylesheet.css">
                   <children>
-                      <PasswordField fx:id="CampoDeSenha" layoutX="113.0" layoutY="589.0" promptText="SENHA" styleClass="PasswordField" stylesheets="@../style/register-stylesheet.css">
+                      <PasswordField fx:id="campoDeSenha" layoutX="113.0" layoutY="589.0" promptText="SENHA" styleClass="PasswordField" stylesheets="@../style/register-stylesheet.css">
                           <font>
                               <Font name="Alexandria Regular" size="12.0" />
                           </font>
                   </PasswordField>
-                      <TextField fx:id="CampoDeUsuario" layoutX="113.0" layoutY="415.0" promptText="NOME DO USUÁRIO" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
+                      <TextField fx:id="campoDeUsuario" layoutX="113.0" layoutY="415.0" promptText="NOME DO USUÁRIO" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
                           <font>
                               <Font name="Alexandria Regular" size="12.0" />
                           </font>
                   </TextField>
-                      <Button fx:id="BotaoCriar" layoutX="278.0" layoutY="688.0" mnemonicParsing="false" onAction="#CriarConta" styleClass="Button" stylesheets="@../style/register-stylesheet.css" text="CRIAR" textFill="WHITE">
+                      <Button fx:id="BotaoCriar" layoutX="278.0" layoutY="688.0" mnemonicParsing="false" onAction="#criarConta" styleClass="Button" stylesheets="@../style/register-stylesheet.css" text="CRIAR" textFill="WHITE">
                           <font>
                               <Font name="DejaVu Sans Condensed Bold" size="13.0" />
                           </font>
@@ -40,22 +40,22 @@
                               <Font name="Alexandria Regular" size="36.0" />
                           </font>
                       </Label>
-            <ImageView fx:id="BotaoBack" fitHeight="59.0" fitWidth="115.0" layoutX="32.0" layoutY="27.0" onMouseClicked="#Voltar" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+            <ImageView fx:id="botaoVoltar" fitHeight="59.0" fitWidth="115.0" layoutX="32.0" layoutY="27.0" onMouseClicked="#Voltar" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/arrow-left-svgrepo-com.png" />
                </image>
             </ImageView>
-            <TextField fx:id="CampoDeEmail" layoutX="113.0" layoutY="497.0" promptText="E-MAIL" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
+            <TextField fx:id="campoDeEmail" layoutX="113.0" layoutY="497.0" promptText="E-MAIL" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
                <font>
                   <Font name="Alexandria Regular" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="CampoDeNome" layoutX="114.0" layoutY="254.0" promptText="NOME " styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
+            <TextField fx:id="campoDeNome" layoutX="114.0" layoutY="254.0" promptText="NOME " styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
                <font>
                   <Font name="Alexandria Regular" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="CampoDeSobrenome" layoutX="114.0" layoutY="333.0" promptText="SOBRENOME" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
+            <TextField fx:id="campoDeSobrenome" layoutX="114.0" layoutY="333.0" promptText="SOBRENOME" styleClass="TextField" stylesheets="@../style/register-stylesheet.css">
                <font>
                   <Font name="Alexandria Regular" size="12.0" />
                </font>
